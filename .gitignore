@@ -4,7 +4,7 @@
 **/.npmrc
 .tags*
 .vs/
-.vscode/
+.de/
 *.log
 *.pyc
 *.sln
@@ -17,12 +17,14 @@
 *.xcodeproj
 /.idea/
 /dist/
-node_modules/
 SHASUMS256.txt
 **/package-lock.json
 compile_commands.json
 .envrc
 
+node_modules/
 .npmrc
+vscode*
+yarn.lock
 
 example-mockup/
