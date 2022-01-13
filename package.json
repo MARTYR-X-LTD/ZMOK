@@ -1,0 +1,23 @@
+{
+  "name": "ZMOK",
+  "version": "0.9.0",
+  "description": "BetterMockups 3D",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "MARTYR X LTD",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^16.0.5"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.2",
+    "concat-stream": "^2.0.0",
+    "psd": "https://github.com/MARTYR-X-LTD/psd.js#master",
+    "sharp": "^0.29.3",
+    "three": "^0.136.0",
+    "toml": "^3.0.0"
+  }
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <title>ZMOK</title>
+
+   <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+   <link rel="stylesheet" href="css/main.css">
+   <script src="index.js"></script>
+</head>
+
+<body>
+   <header>
+      <span class="app-title">ZMOK</span>
+      <div class="header-right">
+         <div class="window-controls">
+            <button class="btn-window-controls" id="minimize-button" onclick="app_window_control('minimize')">
+               <svg version="1.1" baseProfile="basic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 15 1.2" xml:space="preserve">
+                  <path id="rect917" stroke-width="1.2" stroke-linecap="square" stroke-miterlimit="11.3386" d="
+                  M0.6,0.6h13.8" />
+               </svg>
+            </button>
+            <button class="btn-window-controls" id="close-button" onclick="app_window_control('quit')">
+               <svg version="1.1" baseProfile="basic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 210.5 210.5" xml:space="preserve">
+                  <line fill="none" stroke-width="24" stroke-miterlimit="10" x1="5.7" y1="5.7" x2="204.8" y2="204.8" />
+                  <line fill="none" stroke-width="24" stroke-miterlimit="10" x1="204.8" y1="5.7" x2="5.7" y2="204.8" />
+               </svg>
+            </button>
+
+
+         </div>
+         <div id="mockup-set-info">
+            <div class="mockup-set-name">
+               <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                  <path xmlns="http://www.w3.org/2000/svg" d="M4 3C2.89543 3 2 3.89543 2 5V10V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V10V5C22 3.89543 21.1046 3 20 3H4ZM20 5V9H4V5H20ZM4 11H20V19H4V11ZM10 7C10 7.55228 9.55228 8 9 8C8.44772 8 8 7.55228 8 7C8 6.44772 8.44772 6 9 6C9.55228 6 10 6.44772 10 7ZM6 8C6.55228 8 7 7.55228 7 7C7 6.44772 6.55228 6 6 6C5.44772 6 5 6.44772 5 7C5 7.55228 5.44772 8 6 8Z"></path>
+               </svg>
+               <span id="mockup-set-name-text"></span>
+            </div>
+            <span id="mockup-set-number"></span>
+         </div>
+      </div>
+   </header>
+   <main>
+      <div id="app-core">
+         <span class="render-view-label">Render View</span>
+         <div class="app-core-container">
+            <div id="render-view"></div>
+            <div class="render-info">
+               <div class="render-info-latest">
+                  <span class="render-info-title">Latest render</span>
+                  <div class="render-info-icon-text icon-document">
+                     <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path xmlns="http://www.w3.org/2000/svg" d="M4 4C4 2.89543 4.89543 2 6 2H14C14.2652 2 14.5196 2.10536 14.7071 2.29289L19.7071 7.29289C19.8946 7.48043 20 7.73478 20 8V20C20 21.1046 19.1046 22 18 22H6C4.89543 22 4 21.1046 4 20V4ZM17.5858 8L14 4.41421V8H17.5858ZM12 4L6 4V20H18V10H13C12.4477 10 12 9.55228 12 9V4ZM8 13C8 12.4477 8.44772 12 9 12H15C15.5523 12 16 12.4477 16 13C16 13.5523 15.5523 14 15 14H9C8.44772 14 8 13.5523 8 13ZM8 17C8 16.4477 8.44772 16 9 16H15C15.5523 16 16 16.4477 16 17C16 17.5523 15.5523 18 15 18H9C8.44772 18 8 17.5523 8 17Z"></path>
+                     </svg>
+                     <span id="render-info-mockup-text">-</span>
+                  </div>
+                  <div class="render-info-icon-text icon-clock">
+                     <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path xmlns="http://www.w3.org/2000/svg" d="M12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM12 6C12.5523 6 13 6.44772 13 7V11.5858L15.7071 14.2929C16.0976 14.6834 16.0976 15.3166 15.7071 15.7071C15.3166 16.0976 14.6834 16.0976 14.2929 15.7071L11.2929 12.7071C11.1054 12.5196 11 12.2652 11 12V7C11 6.44772 11.4477 6 12 6Z"></path>
+                     </svg>
+                     <span id="render-info-time-text">-</span>
+                  </div>
+               </div>
+               <div class="render-info-status">
+                  <span class="render-info-title">Status</span>
+                  <p id="render-info-status-text">Ready.<br>Waiting for changes.</p>
+               </div>
+               <button class="btn-base btn-1">
+                  <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                     <path xmlns="http://www.w3.org/2000/svg" d="M12.7929 2.29289C13.1834 1.90237 13.8166 1.90237 14.2071 2.29289L17.2071 5.29289C17.5976 5.68342 17.5976 6.31658 17.2071 6.70711L14.2071 9.70711C13.8166 10.0976 13.1834 10.0976 12.7929 9.70711C12.4024 9.31658 12.4024 8.68342 12.7929 8.29289L14.0858 7H12.5C8.95228 7 6 9.95228 6 13.5C6 17.0477 8.95228 20 12.5 20C16.0477 20 19 17.0477 19 13.5C19 12.9477 19.4477 12.5 20 12.5C20.5523 12.5 21 12.9477 21 13.5C21 18.1523 17.1523 22 12.5 22C7.84772 22 4 18.1523 4 13.5C4 8.84772 7.84772 5 12.5 5H14.0858L12.7929 3.70711C12.4024 3.31658 12.4024 2.68342 12.7929 2.29289Z"></path>
+                  </svg>
+                  <span>Force Render</span></button>
+            </div>
+            <div class="photoshop-info">
+               <p>If changes are not being automatically updated in Photoshop, go to:</p>
+               <p><strong>Layer → Smart Objects → Update All Modified Content</strong></p>
+               <p>Or install this action.<br>More information here.</p>
+            </div>
+         </div>
+      </div>
+      <div id="error-core">
+         <span class=error-core-header>Error</span>
+         <span id=error-core-file>asd.bm3d</span>
+         <p id=error-core-text></p>
+      </div>
+   </main>
+   <div class="no-load"></div>
+   <footer>
+      <button class="btn-base load-mockup-button" onclick="load_set()">
+         <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path xmlns="http://www.w3.org/2000/svg" d="M12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM12 7C12.5523 7 13 7.44772 13 8V11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H13V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V13H8C7.44772 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H11V8C11 7.44772 11.4477 7 12 7Z"></path>
+         </svg>
+         <span>Load Mockup Set</span>
+      </button>
+      <div class="footer-right">
+         <div class="footer-links">
+            <a>About</a>
+            <a>How to use it</a>
+            <a>Check for updates</a>
+         </div>
+         <div class="martyr-version">
+            <div class="version">v1.0</div>
+            <div class="martyr-logo"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1959.12 419.94">
+                  <path d="M732.14,322.41V62.32H788.7V98.71h2.93c5.12-14.34,14.23-21.2,27-29.33S846,58.43,862.44,58.43c3.43,0,7.44.11,12.09.33A84.6,84.6,0,0,1,885.87,60v51a107.34,107.34,0,0,0-12.27-2.2,126,126,0,0,0-17-1.18q-19.05,0-33.94,7.43a59,59,0,0,0-23.53,20.59,53.39,53.39,0,0,0-8.6,29.89v157Z" />
+                  <path d="M0,322.41V62.32H56v37.4h3.49C65.34,85.16,73.57,78.23,86.93,70s30.69-11.1,49.23-11.1q28.36,0,47.68,12.36c12.87,8.24,22.29,14,28.28,28.42H215c6.47-14.11,15.67-20.93,30.37-29.33s33.62-11.45,54-11.45q38.44,0,62.68,22.35T386.34,148V322.41H328V154.27q0-25.72-15-37.42t-36.24-11.69q-25.8,0-40.26,14.74T222,157.66V322.41H164.17V151.23q0-20.83-13.91-33.45T114.2,105.16a54.63,54.63,0,0,0-27.81,7.28,55.77,55.77,0,0,0-20.32,20.24q-7.68,13-7.69,30.06V322.41Z" />
+                  <path d="M528.62,328q-26.91,0-48.32-9.08t-33.94-26.66q-12.56-17.59-12.55-43.18,0-22,9.06-36.31a65.31,65.31,0,0,1,24.54-22.7A134.33,134.33,0,0,1,502,177.38,330.12,330.12,0,0,1,541.25,171q25.25-2.7,40.81-4.57c10.36-1.24,17.94-3.22,22.68-5.93s7.14-7,7.14-13V146.3q0-21.17-13.08-32.85t-38.52-11.67q-26.53,0-41.91,10.84c-10.26,7.21-16.54,15.3-20.33,24.33l-56.14-.15c1.66-16.12,13.32-35.41,25.93-48,11.52-11.53,26-18,41.66-22.73a172.43,172.43,0,0,1,50.06-7.1,190.28,190.28,0,0,1,37.34,3.89,114,114,0,0,1,35.94,13.71,76.33,76.33,0,0,1,27,27.52q10.44,17.7,10.44,45.13V322.41H613.54V286.85h-2.2q-5.31,10-16,19.48T568.05,321.9Q551.49,328,528.62,328Zm13.54-42q21.78,0,37.51-8t24.08-21.08a51.36,51.36,0,0,0,8.32-28.11V196.09C610,197.9,606.31,199.53,601,201a167.32,167.32,0,0,1-18.12,3.8q-10.17,1.6-20,2.79t-16.37,2a137.84,137.84,0,0,0-28.19,6.18q-12.63,4.31-20.13,12.37t-7.5,21.08q0,18.1,14.45,27.42T542.16,286Z" />
+                  <path d="M1069.52,62.32v42.84H913.4V62.32ZM954.21,0h58.38V245.53q0,13.91,4.58,21a22.85,22.85,0,0,0,11.89,9.65,49.28,49.28,0,0,0,16.12,2.53,67.5,67.5,0,0,0,11.42-.85q5-.84,7.79-1.34l10.25,43.69a121.28,121.28,0,0,1-14,3.54A129.78,129.78,0,0,1,1038,326a108,108,0,0,1-41.74-7.2,68.45,68.45,0,0,1-30.65-23.28Q954,279.74,954.21,255.86Z" />
+                  <path d="M1160.52,419.94a134.09,134.09,0,0,1-23.24-1.85,91.82,91.82,0,0,1-16.11-4.06l13.92-43.36a95.63,95.63,0,0,0,26.44,3.31,34,34,0,0,0,20.59-7.62q9-7.22,15.56-23.63l6.39-16.26L1101.59,62.32h62.22L1233,262.47h2.93L1305.1,62.32l62.78.51L1252.77,356.12q-7.89,20.49-20.51,34.79a81.8,81.8,0,0,1-30.37,21.68Q1184.13,419.94,1160.52,419.94Z" />
+                  <path d="M1406.07,322.41V62.32h56.57V98.71h2.92c5.13-14.34,14.24-21.2,27-29.33s27.3-10.95,43.77-10.95c3.42,0,7.44.11,12.09.33A84.79,84.79,0,0,1,1559.81,60v51a107.78,107.78,0,0,0-12.27-2.2,126.25,126.25,0,0,0-17-1.18q-19,0-34,7.43a59.13,59.13,0,0,0-23.53,20.59,53.38,53.38,0,0,0-8.59,29.89v157Z" />
+                  <path d="M1959.12,153.42v46.07H1559.81V153.42Z" />
+               </svg></div>
+         </div>
+
+      </div>
+   </footer>
+
+</body>
+
+</html>
