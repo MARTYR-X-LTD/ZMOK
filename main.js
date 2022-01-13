@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron')
 const path = require('path')
 const chokidar = require('chokidar');
 const concat = require('concat-stream');
@@ -24,8 +24,16 @@ function createWindow() {
     },
   })
 
+  //open links in external browser
+  win.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
+  });
+
   //win.setMenu(null)
-  win.loadFile('src/index.html')
+  win.loadFile('src/index.html');
+
+
 }
 
 function createChildren() {

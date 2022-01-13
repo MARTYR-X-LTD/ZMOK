@@ -19,11 +19,30 @@ html {
 
 :root {
    --bg-color-1: #efefef;
-   --bg-color-2: #dfdfdf;
+   --bg-color-2: #00000010;
    --leter-spacing-1: -0.03em;
    --border-radius-1: 5px;
    --fg-color-1: #121212;
    --fg-color-2: #eeeeee;
+   --mockup-set: #1f79ff;
+   --mockup-set-hover: #1760cc;
+   --render-view-border: #121212;
+}
+
+@media (prefers-color-scheme: dark) {
+   :root {
+      --bg-color-1: #141414;
+      --bg-color-2: #ffffff10;
+      --fg-color-1: #cecece;
+      --fg-color-2: #eeeeee;
+      --mockup-set: #0a4db3;
+      --mockup-set-hover: #0346a9;
+      --render-view-border: #555555;
+   }
+
+   #render-view {
+      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAABlBMVEUAAAAVFRXl4tqrAAAAFElEQVR42mNAAEY4GNKCw8YfcAAApbQAyVIZevAAAAAASUVORK5CYII=") 0% 0% / .8em .8em !important;
+   }
 }
 
 :not(input):not(textarea),
@@ -38,6 +57,7 @@ input, button, textarea, :focus {
 }
 
 body {
+   color: var(--fg-color-1);
    display: flex;
    flex-direction: column;
    background-color: var(--bg-color-1);
@@ -61,6 +81,13 @@ p {
    margin: 0;
    font-size: 0.75em;
 }
+
+
+svg path {
+   fill: var(--fg-color-1);
+}
+
+
 
 .app-title {
    font-weight: 700;
@@ -86,12 +113,14 @@ p {
 .window-controls button {
    border: none;
    padding: 0.5em;
-   height: fit-content
+   height: fit-content;
+   cursor: pointer;
+   transition: background-color .25s ease;
+   border-radius: var(--border-radius-1);
 }
 
 .window-controls button:hover {
    background-color: var(--bg-color-2);
-   border-radius: var(--border-radius-1);
 }
 
 .window-controls button svg {
@@ -106,6 +135,10 @@ p {
 
 #close-button svg {
    margin-top: 2px;
+}
+
+.btn-window-controls {
+   background-color: var(--bg-color-1);
 }
 
 /*
@@ -149,8 +182,10 @@ main {
 }
 
 .btn-1 {
-   border: 2px solid black;
+   border: 1px solid var(--fg-color-1);
    padding: .4em .6em;
+   background-color: var(--bg-color-1);
+   color: var(--fg-color-1);
 }
 
 .btn-base {
@@ -178,18 +213,17 @@ main {
 
 .load-mockup-button {
    border: none;
-   background-color: #1f79ff;
+   background-color: var(--mockup-set);
    color: var(--fg-color-2);
    padding: .5em .6em;
 }
 
-.load-mockup-button svg {
-   fill: var(--bg-color-1);
+.load-mockup-button svg path {
+   fill: var(--fg-color-2);
 }
 
 .load-mockup-button:hover {
-   background-color: #1760cc;
-
+   background-color: var(--mockup-set-hover);
 }
 
 #error-core {
@@ -242,7 +276,7 @@ code {
 }
 
 #render-view {
-   border: 2px solid black;
+   border: 1px solid var(--render-view-border);
    border-radius: var(--border-radius-1);
    height: 15em;
    width: 25em;
@@ -339,8 +373,23 @@ footer, .footer-links, .martyr-version, .footer-right {
 }
 
 .footer-links {
+   margin-top: 0.22em;
    gap: 1.2em;
    text-transform: uppercase;
+}
+
+.footer-links a {
+   text-decoration: none;
+   background: no-repeat 0 95%;
+   background-image: linear-gradient(currentColor, currentColor);
+   background-size: 0% 0.05em;
+   transition: background-size .3s cubic-bezier(.25, .1, .03, .99);
+   padding-bottom: 0.22em;
+   cursor: pointer;
+}
+
+.footer-links a:hover {
+   background-size: 100% 0.05em;
 }
 
 .martyr-version {
@@ -355,4 +404,8 @@ footer, .footer-links, .martyr-version, .footer-right {
    width: 4.7em;
    height: auto;
    margin-top: 5px;
+}
+
+.martyr-logo svg path {
+   fill: var(--fg-color-1);
 }
