@@ -6,7 +6,7 @@ const fs = require('fs');
 // Filesystem watch for changes
 const chokidar = require('chokidar');
 
-// .bm3d file parser
+// .zmok file parser
 const toml = require('toml');
 
 // PNG render library
@@ -14,7 +14,7 @@ const sharp = require('sharp');
 
 const PSD = require('psd');
 const THREE = require("three");
-require('three/examples/js/loaders/GLTFLoader');
+require('./GLTFLoader');
 const { render_scene } = require('./render');
 const { parseTOML } = require('./parseTOML');
 //***********************************************************
@@ -24,7 +24,7 @@ const windowTitle = 'ZMOK';
 // To get latest render time
 const today = new Date();
 
-// watches for file changes in data-bm3d. Set by set_watcher(datadir)
+// watches for file changes in data-zmok. Set by set_watcher(datadir)
 let watcher;
 
 function set_watcher(data) {
