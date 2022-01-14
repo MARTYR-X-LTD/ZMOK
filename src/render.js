@@ -134,7 +134,7 @@ const render_scene = (renderData) => {
          setTimeout(function () {
             refresh_spawn()
          }, 1200)
-         status_update('Finished.<br>Waiting for new changes.')
+         status_update('Finished.<br>Waiting for new edits in Photoshop.')
          latest_render_update(renderData.mockup_name)
       })
 

@@ -19,15 +19,14 @@
   },
   "dependencies": {
     "chokidar": "^3.5.2",
-    "concat-stream": "^2.0.0",
     "psd": "https://github.com/MARTYR-X-LTD/psd.js#master",
     "sharp": "^0.29.3",
     "three": "^0.136.0",
     "toml": "^3.0.0"
   },
   "build": {
-    "appId": "com.martyr.${name}",
-    "productName": "${name}",
+    "appId": "com.martyr.ZMOK",
+    "productName": "ZMOK",
     "win": {
       "target": "nsis"
     },
@@ -36,7 +35,7 @@
       "perMachine": false,
       "allowToChangeInstallationDirectory": true
     },
-    "artifactName": "${name}_${version}_Setup.${ext}",
+    "artifactName": "ZMOK_${version}_Setup.${ext}",
     "forceCodeSigning": false
   }
 }

@@ -1,7 +1,6 @@
 const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron')
 const path = require('path')
 const chokidar = require('chokidar');
-const concat = require('concat-stream');
 const fs = require('fs');
 const toml = require('toml');
 
