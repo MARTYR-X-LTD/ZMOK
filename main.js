@@ -44,11 +44,14 @@ function createChildren() {
     alwaysOnTop: true,
     frame: false,
     autoHideMenuBar: true,
-    resizable: false,
     //visibleOnAllWorkspaces:true, 
   });
   child.loadFile('src/invisible.html');
   child.setIgnoreMouseEvents(true);
+
+  child.on('closed', () => {
+    child = null
+  })
 
   //child.minimize();
   child.hide();
@@ -57,11 +60,9 @@ function createChildren() {
   child.show();
   child.restore();
 
-
-  setTimeout(function () { child.destroy() }, 10)
+  setTimeout(function () { child.close() }, 100)
 
 }
-
 
 
 app.whenReady().then(() => {
