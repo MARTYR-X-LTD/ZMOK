@@ -24,8 +24,10 @@ html {
    --border-radius-1: 5px;
    --fg-color-1: #121212;
    --fg-color-2: #eeeeee;
-   --mockup-set: #1f79ff;
-   --mockup-set-hover: #1760cc;
+   /* --mockup-set: #1f79ff; */
+   --mockup-set: #aa1e6c;
+   /* --mockup-set-hover: #1760cc; */
+   --mockup-set-hover: #aa1e6c;
    --render-view-border: #121212;
 }
 
@@ -35,9 +37,12 @@ html {
       --bg-color-2: #ffffff10;
       --fg-color-1: #cecece;
       --fg-color-2: #eeeeee;
-      --mockup-set: #0a4db3;
-      --mockup-set-hover: #0346a9;
+      /* --mockup-set: #0a4db3; */
+      --mockup-set: #aa1e6c;
+      /* --mockup-set-hover: #0346a9; */
+      --mockup-set-hover: #741e4d;
       --render-view-border: #555555;
+      color-scheme: dark;
    }
 
    #render-view {
@@ -91,8 +96,17 @@ svg path {
 
 .app-title {
    font-weight: 700;
-   font-size: 2.2em;
+   font-size: 1.8em;
    letter-spacing: -0.05em;
+   display: flex;
+   align-items: center;
+   align-self: baseline;
+}
+
+.app-title img {
+   height: auto;
+   width: 1em;
+   margin-right: 0.2em;
 }
 
 .header-right {

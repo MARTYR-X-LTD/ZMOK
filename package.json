@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "pack": "electron-builder --dir",
-    "distW": "electron-builder --ia32 --x64 -w",
+    "dist32_64": "electron-builder --ia32 --x64 -w",
+    "distW": "electron-builder --x64 -w",
     "dist": "electron-builder"
   },
   "author": "MARTYR X LTD",
