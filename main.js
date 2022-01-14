@@ -7,6 +7,8 @@ const toml = require('toml');
 let win;
 let child;
 
+app.commandLine.appendSwitch('lang', 'en-US');
+
 function createWindow() {
   win = new BrowserWindow({
     width: 920 * 0.9,

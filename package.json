@@ -36,6 +36,11 @@
       "allowToChangeInstallationDirectory": true
     },
     "artifactName": "ZMOK_${version}_Setup.${ext}",
-    "forceCodeSigning": false
+    "forceCodeSigning": false,
+    "afterPack": "./removeLocales.js",
+    "fileAssociations": {
+      "ext": "zmok",
+      "icon": "file-icon-256.ico"
+    }
   }
 }
