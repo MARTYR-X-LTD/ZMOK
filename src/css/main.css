@@ -18,22 +18,24 @@ html {
 }
 
 :root {
-   --bg-color-1: #efefef;
+   /* --bg-color-1: #efefef; */
+   --bg-color-1: #f3efef;
    --bg-color-2: #00000010;
    --leter-spacing-1: -0.03em;
    --border-radius-1: 5px;
    --fg-color-1: #121212;
    --fg-color-2: #eeeeee;
    /* --mockup-set: #1f79ff; */
-   --mockup-set: #aa1e6c;
+   --mockup-set: #d34673;
    /* --mockup-set-hover: #1760cc; */
-   --mockup-set-hover: #aa1e6c;
+   --mockup-set-hover: #be2665;
    --render-view-border: #121212;
+   --render-view-container: #ffffffe6;
 }
 
 @media (prefers-color-scheme: dark) {
    :root {
-      --bg-color-1: #141414;
+      --bg-color-1: #140c0e;
       --bg-color-2: #ffffff10;
       --fg-color-1: #cecece;
       --fg-color-2: #eeeeee;
@@ -42,12 +44,10 @@ html {
       /* --mockup-set-hover: #0346a9; */
       --mockup-set-hover: #741e4d;
       --render-view-border: #555555;
+      --render-view-container: #00000042;
       color-scheme: dark;
    }
 
-   #render-view {
-      background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAABlBMVEUAAAAVFRXl4tqrAAAAFElEQVR42mNAAEY4GNKCw8YfcAAApbQAyVIZevAAAAAASUVORK5CYII=") 0% 0% / .8em .8em !important;
-   }
 }
 
 :not(input):not(textarea),
@@ -92,9 +92,8 @@ svg path {
    fill: var(--fg-color-1);
 }
 
-
-
 .app-title {
+   margin-left: -0.09em;
    font-weight: 700;
    font-size: 1.8em;
    letter-spacing: -0.05em;
@@ -289,16 +288,21 @@ code {
 
 }
 
+.render-view-container {
+   background-color: var(--render-view-container);
+}
+
 #render-view {
    border: 1px solid var(--render-view-border);
    border-radius: var(--border-radius-1);
    height: 15em;
    width: 25em;
-   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUAQMAAAC3R49OAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAGUExURf///+rq6hX5lggAAAAUSURBVAjXY2Cw/8BADP5/gIEYDAAkgh1NOfT7DQAAAABJRU5ErkJggg==") 0% 0% / .8em .8em;
+   background: url("../assets/render-view-background.png") 0% 0% / .8em .8em;
    display: flex;
    justify-content: center;
    align-items: center;
 }
+
 
 #render-view canvas {
    width: calc(100% + 1px) !important;
