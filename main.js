@@ -40,22 +40,25 @@ function createChildren() {
   child = new BrowserWindow({
     width: 800,
     height: 1,
+    transparent: true,
     alwaysOnTop: true,
     frame: false,
     autoHideMenuBar: true,
     resizable: false,
     //visibleOnAllWorkspaces:true, 
   });
-  child.loadFile('src/invisible.html')
+  child.loadFile('src/invisible.html');
+  child.setIgnoreMouseEvents(true);
 
-  child.minimize();
+  //child.minimize();
   child.hide();
   if (process.platform == "darwin") child.app.hide();
 
   child.show();
   child.restore();
 
-  child.destroy();
+
+  setTimeout(function () { child.destroy() }, 10)
 
 }
 
@@ -131,6 +134,11 @@ ipcMain.on('app', (event, arg) => {
       app.quit();
       break;
   }
+})
+
+
+ipcMain.on('refresh-spawn', (event, arg) => {
+  createChildren();
 })
 
 

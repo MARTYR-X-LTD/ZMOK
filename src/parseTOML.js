@@ -41,6 +41,7 @@ function parseTOML(file) {
    // as they are added.
    const mockups = new Set();
    const textures = new Set();
+   const renders = new Set();
    const missing_files = new Set();
 
    for (const e of data.textures) {
@@ -62,6 +63,7 @@ function parseTOML(file) {
       if (!fs.existsSync(e.render_output)) {
          generate_black_png(e.render_output, render_r_width, render_r_height);
       }
+      renders.add(e.render_output);
       e.render_r_width = render_r_width;
       e.render_r_height = render_r_height;
 
@@ -90,7 +92,8 @@ function parseTOML(file) {
    }
 
    // add array of textures to watch for changes in watcher
-   data.files_to_watch = [...textures];
+   data.textures_to_watch = [...textures];
+   data.renders_to_watch = [...renders];
 
    var number_mockups = mockups.size
    var number_textures = textures.size

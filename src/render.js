@@ -16,12 +16,12 @@ const render_scene = (renderData) => {
    /*
    renderData = {
       mockup_name: "Scene 1 - Bag 1.psd",
-      render_output: "path to\\data-bm3d\\scene-1_bag-1.png",
+      render_output: "path to\\data-zmok\\scene-1_bag-1.png",
       render_r_height: 2400,
       render_r_width: 3840,
       render_resolution: [3840, 2400],
-      scene: "path to\\data-bm3d\\scene-1_bag-1.glb",
-      texture: "path to\\data-bm3d\\\scene-1_bag-1.psd",
+      scene: "path to\\data-zmok\\scene-1_bag-1.glb",
+      texture: "path to\\data-zmok\\\scene-1_bag-1.psd",
       quality: 1,
    }
    */
@@ -129,6 +129,11 @@ const render_scene = (renderData) => {
 
 
       export_png.then(() => {
+         // usage of refresh_spawn() explained in index.js on
+         // top of set_watcher_renders().
+         setTimeout(function () {
+            refresh_spawn()
+         }, 1200)
          status_update('Finished.<br>Waiting for new changes.')
          latest_render_update(renderData.mockup_name)
       })

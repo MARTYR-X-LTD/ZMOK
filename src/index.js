@@ -24,14 +24,15 @@ const windowTitle = 'ZMOK';
 // To get latest render time
 const today = new Date();
 
-// watches for file changes in data-zmok. Set by set_watcher(datadir)
-let watcher;
+// Variables for every watcher function because they
+// have to be updated when mockup-set is changed.
+let watcher_textures;
+// let watcher_renders;
 
-function set_watcher(data) {
+// watches .PSD textures for changes
+function set_watcher_textures(data) {
   console.log(data);
-  // return chokidar.watch(data.files_to_watch, {
-
-  return chokidar.watch(data.data_dir, {
+  return chokidar.watch(data.textures_to_watch, {
     ignored: /(^|[\/\\])\../, // ignore dotfiles
     persistent: true,
     usePolling: true,
@@ -44,6 +45,31 @@ function set_watcher(data) {
       render_scene(renderData);
     })
 }
+
+// watches for rendered .PNG files for changes and calls for
+// refresh_spawn(), which is a dirty hack that spawns an invisible 
+// window for a couple of miliseconds once the render has been saved.
+// calling it here and not right after the library sharp
+// has finished processing the png because there's some delay
+// by the OS to report a proper updated file to Photoshop.
+
+// UPDATE: not really used because it still needs to wait a sec to get
+// a proper update in Photoshop. Don't know why. Maybe Photoshop?
+// Better to use this directly after sharp processed the .PNG at the end
+// of the render.js pipeline. The less watchers the better.
+function set_watcher_renders(data) {
+  return chokidar.watch(data.renders_to_watch, {
+    ignored: /(^|[\/\\])\../, // ignore dotfiles
+    persistent: true,
+    usePolling: true,
+  })
+    .on('change', () => {
+      setTimeout(function () {
+        refresh_spawn()
+      }, 1000)
+    });
+}
+
 
 
 function change_text(element, text) {
@@ -69,6 +95,11 @@ function load_set() {
 function app_window_control(command) {
   ipcRenderer.send('app', command)
 }
+
+function refresh_spawn() {
+  ipcRenderer.send('refresh-spawn')
+}
+
 
 function core_display(bool) {
   //console.log(bool);
@@ -98,7 +129,8 @@ ipcRenderer.on('open-mockup-set', (event, file) => {
   parseTOML(file)
     .then((data) => {
       error_display(false);
-      watcher = set_watcher(data);
+      watcher_textures = set_watcher_textures(data);
+      // watcher_renders = set_watcher_renders(data);
       core_display(true);
       document.title = `${windowTitle} - ${data.name}`;
 
