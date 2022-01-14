@@ -1,7 +1,7 @@
 {
   "name": "ZMOK",
   "version": "0.9.0",
-  "description": "BetterMockups 3D",
+  "description": "A simple 3D renderer focused on bringing 3D features to Photoshop mockups.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -26,8 +26,8 @@
     "toml": "^3.0.0"
   },
   "build": {
-    "appId": "com.my.app",
-    "productName": "My App",
+    "appId": "com.martyr.${name}",
+    "productName": "${name}",
     "win": {
       "target": "nsis"
     },
@@ -36,7 +36,7 @@
       "perMachine": false,
       "allowToChangeInstallationDirectory": true
     },
-    "artifactName": "MyApp_${version}_Setup.${ext}",
+    "artifactName": "${name}_${version}_Setup.${ext}",
     "forceCodeSigning": false
   }
 }
