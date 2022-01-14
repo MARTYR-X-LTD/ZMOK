@@ -115,7 +115,7 @@ svg path {
    padding: 0.5em;
    height: fit-content;
    cursor: pointer;
-   transition: background-color .25s ease;
+   transition: background-color .15s ease;
    border-radius: var(--border-radius-1);
 }
 
