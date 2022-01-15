@@ -35,7 +35,7 @@ html {
 
 @media (prefers-color-scheme: dark) {
    :root {
-      --bg-color-1: #140c0e;
+      --bg-color-1: #100e0f;
       --bg-color-2: #ffffff10;
       --fg-color-1: #cecece;
       --fg-color-2: #eeeeee;

@@ -14,7 +14,7 @@
   "author": "MARTYR X LTD",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^16.0.5",
+    "electron": "^16.0.7",
     "electron-builder": "^22.14.5"
   },
   "dependencies": {
@@ -41,6 +41,16 @@
     "fileAssociations": {
       "ext": "zmok",
       "icon": "file-icon-256.ico"
-    }
+    },
+    "files": [
+      "**/*",
+      "!resources/",
+      "!node_modules/sharp/vendor/",
+      "!node_modules/three/build/three.min.js",
+      "!node_modules/three/build/three.module.js",
+      "!node_modules/three/src/",
+      "!node_modules/psd/docs/",
+      "!node_modules/psd/dist/psd.min.js"
+    ]
   }
 }
