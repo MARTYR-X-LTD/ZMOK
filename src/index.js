@@ -88,7 +88,6 @@ function latest_render_update(mockup_name) {
 
 function load_set() {
   ipcRenderer.send('open-mockup-set')
-
   //  window.electron.open_mockup_set()
 }
 

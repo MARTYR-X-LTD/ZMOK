@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, shell, webContents } = require('electron')
 const path = require('path')
 const chokidar = require('chokidar');
 const fs = require('fs');
@@ -6,6 +6,29 @@ const toml = require('toml');
 
 let win;
 let child;
+
+if (app.isPackaged) {
+  // workaround for missing executable argument)
+  process.argv.unshift(null)
+}
+// parameters is now an array containing any files/folders that your OS will pass to your application
+let external_file = process.argv[2];
+
+
+function open_mockup_init(external_file) {
+  external_file = path.parse(path.resolve(external_file));
+  console.log(external_file);
+  if (external_file.ext === '.zmok') {
+    win.webContents.send('open-mockup-set', external_file);
+  } else {
+    dialog.showMessageBoxSync(win, {
+      title: 'Error',
+      message: 'Invalid file',
+      type: 'error'
+    })
+  }
+}
+
 
 app.commandLine.appendSwitch('lang', 'en-US');
 
@@ -67,12 +90,18 @@ function createChildren() {
 
 
 app.whenReady().then(() => {
-  createWindow()
+  createWindow();
 
   win.once('ready-to-show', () => {
-    win.show()
+    win.show();
   })
   //setTimeout(createChildren, 10000) 
+
+  win.webContents.on('dom-ready', () => {
+    if (external_file) {
+      open_mockup_init(external_file);
+    }
+  })
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -88,9 +117,7 @@ app.on('window-all-closed', () => {
   app.quit()
 })
 
-
 ipcMain.on('open-mockup-set', (event, arg) => {
-  let file;
   dialog.showOpenDialog({
     title: 'Open Mockup Set',
     filters: [{ name: 'ZMOK 3D Mockup Set', extensions: ['zmok'] }],
@@ -106,7 +133,7 @@ ipcMain.on('open-mockup-set', (event, arg) => {
         //   ext: '.txt',
         //   name: 'file' }
         if (file.ext === '.zmok') {
-          //parseTOML(path.resolve(file.dir, file.base));
+          // parseTOML(path.resolve(file.dir, file.base));
           event.reply('open-mockup-set', file);
         } else {
           dialog.showMessageBoxSync(win, {
