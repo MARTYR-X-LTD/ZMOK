@@ -31,26 +31,33 @@
       "target": "nsis"
     },
     "nsis": {
-      "oneClick": false,
+      "oneClick": true,
       "perMachine": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": false,
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     },
     "artifactName": "ZMOK_${version}_Setup.${ext}",
     "forceCodeSigning": false,
-    "afterPack": "./removeLocales.js",
+    "afterPack": "./tools/removeLocales.js",
     "fileAssociations": {
       "ext": "zmok",
       "icon": "file-icon-256.ico"
     },
     "files": [
       "**/*",
-      "!resources/",
+      "!assets/",
       "!node_modules/sharp/vendor/",
       "!node_modules/three/build/three.min.js",
       "!node_modules/three/build/three.module.js",
       "!node_modules/three/src/",
       "!node_modules/psd/docs/",
-      "!node_modules/psd/dist/psd.min.js"
+      "!node_modules/psd/dist/psd.min.js",
+      "!TODO",
+      "!tools/",
+      "!vscode.code-workspace"
     ]
   }
 }

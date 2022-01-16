@@ -1,8 +1,5 @@
-const { app, BrowserWindow, ipcMain, dialog, shell, webContents } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron')
 const path = require('path')
-const chokidar = require('chokidar');
-const fs = require('fs');
-const toml = require('toml');
 
 let win;
 let child;
@@ -175,10 +172,3 @@ ipcMain.on('synchronous-message', (event, arg) => {
   console.log(arg) // prints "ping"
   event.returnValue = 'pong'
 })
-
-
-/* pluralize
-const number = 2;
-const string = `${number} trutle${number === 1 ? "" : "s"}`; //this one
-console.log(string)
-*/
