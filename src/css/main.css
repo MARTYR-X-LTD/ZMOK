@@ -196,6 +196,9 @@ svg path {
 main {
    display: flex;
    margin-bottom: 1.5rem;
+   /* flex-grow works with some min-height or height */
+   min-height: 1em;
+   flex-grow: 1;
 }
 
 .btn-1 {
@@ -243,8 +246,14 @@ main {
    background-color: var(--mockup-set-hover);
 }
 
-#error-core {
+#error-core-container {
    display: none;
+   overflow: auto;
+   flex: 1;
+}
+
+.error-core {
+   display: flex;
    flex-direction: column;
    font-size: .9em;
    flex: 1;
@@ -264,6 +273,7 @@ main {
 #error-core-text {
    overflow: auto;
    font-size: 1em;
+   padding-right: 2em;
 }
 
 code {
@@ -410,7 +420,7 @@ input#render-quality {
 }
 
 [data-tooltip][data-position=right]::before {
-   top: -100%;
+   top: -70%;
    left: 150%;
    transform: translateX(-20px);
 }

@@ -58,6 +58,9 @@
       "!TODO",
       "!tools/",
       "!vscode.code-workspace"
+    ],
+    "extraResources": [
+      "photoshop_scripts"
     ]
   }
 }

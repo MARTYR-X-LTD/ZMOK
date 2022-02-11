@@ -134,10 +134,10 @@ function error_display(bool, filepath, text) {
   if (bool) {
     document.getElementById("error-core-text").innerHTML = text;
     document.getElementById("error-core-file").innerHTML = "on → " + filepath;
-    document.getElementById("error-core").style.display = "flex";
+    document.getElementById("error-core-container").style.display = "flex";
   }
   else {
-    document.getElementById("error-core").style.display = "none";
+    document.getElementById("error-core-container").style.display = "none";
   }
 }
 

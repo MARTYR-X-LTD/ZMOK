@@ -30,6 +30,11 @@ function open_mockup_init(external_file) {
 
 app.commandLine.appendSwitch('lang', 'en-US');
 
+const resourcePath =
+  process.env.NODE_ENV === "dev"
+    ? __dirname // Dev Mode
+    : process.resourcesPath; // Live Mode
+
 function createWindow() {
   win = new BrowserWindow({
     width: 920 * 0.9,
@@ -88,12 +93,13 @@ function createChildren() {
   setTimeout(function () { child.close() }, 2000)
 
 }
-
+console.log(resourcePath);
 // this one!!
 function update_smart_objects() {
   if (process.platform == "win32") {
     spawn = child_process.spawnSync;
-    const vbs = spawn('cscript.exe', ['photoshop_scripts/update_smart_objects.vbs']);
+
+    const vbs = spawn('cscript.exe', [path.join(resourcePath, 'photoshop_scripts/update_smart_objects.vbs')]);
   }
 }
 
