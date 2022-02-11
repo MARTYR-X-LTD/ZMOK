@@ -63,43 +63,10 @@ function createWindow() {
 
 }
 
-// old function. A hacky way to update smart objects in photoshop
-// which didn't work in a reliable way. But there's a better
-// alternative below this function!
-function createChildren() {
-  child = new BrowserWindow({
-    width: 800,
-    height: 1,
-    transparent: true,
-    alwaysOnTop: true,
-    frame: false,
-    autoHideMenuBar: true,
-    //visibleOnAllWorkspaces:true, 
-  });
-  child.loadFile('src/invisible.html');
-  child.setIgnoreMouseEvents(true);
-
-  child.on('closed', () => {
-    child = null
-  })
-
-  //child.minimize();
-  child.hide();
-  if (process.platform == "darwin") child.app.hide();
-
-  child.show();
-  child.restore();
-
-  setTimeout(function () { child.close() }, 2000)
-
-}
-console.log(resourcePath);
-// this one!!
 function update_smart_objects() {
   if (process.platform == "win32") {
     spawn = child_process.spawnSync;
-
-    const vbs = spawn('cscript.exe', [path.join(resourcePath, 'photoshop_scripts/update_smart_objects.vbs')]);
+    spawn('cscript.exe', [path.join(resourcePath, 'photoshop_scripts/update_smart_objects.vbs')]);
   }
 }
 
@@ -110,7 +77,6 @@ app.whenReady().then(() => {
   win.once('ready-to-show', () => {
     win.show();
   })
-  //setTimeout(createChildren, 10000) 
 
   win.webContents.on('dom-ready', () => {
     if (external_file) {
@@ -182,7 +148,6 @@ ipcMain.on('app', (event, arg) => {
 
 
 ipcMain.on('refresh-spawn', (event, arg) => {
-  //createChildren();
   update_smart_objects();
 })
 

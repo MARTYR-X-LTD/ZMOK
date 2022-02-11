@@ -26,53 +26,25 @@ const today = new Date();
 
 let render_quality = 1;
 
-// It will complain that the variable is never used.
-// Thing is, I need to save set_watcher_texture(data) to a → watcher_textures
-// variable so I can update it when the mockup set has changed
 let watcher_textures;
-// let watcher_renders;
 
 // watches .PSD textures for changes
 function set_watcher_textures(data) {
-  console.log(data);
+  //console.log(data);
   return chokidar.watch(data.textures_to_watch, {
     ignored: /(^|[\/\\])\../, // ignore dotfiles
     persistent: true,
     usePolling: true,
   })
     .on('change', psd_texture_path => {
-      console.log(psd_texture_path);
+      //console.log(psd_texture_path);
       const psd_texture_file = path.basename(psd_texture_path);
       const renderData = data.textures.find(element => element.texture.includes(psd_texture_file));
       // add quality attribute to renderData
       renderData.quality = render_quality;
-      console.log(renderData);
+      //console.log(renderData);
       render_scene(renderData);
     })
-}
-
-// watches for rendered .PNG files for changes and calls for
-// refresh_spawn(), which is a dirty hack that spawns an invisible 
-// window for a couple of miliseconds once the render has been saved.
-// calling it here and not right after the library sharp
-// has finished processing the png because there's some delay
-// by the OS to report a proper updated file to Photoshop.
-
-// UPDATE: not really used because it still needs to wait a sec to get
-// a proper update in Photoshop. Don't know why. Maybe Photoshop?
-// Better to use this directly after sharp processed the .PNG at the end
-// of the render.js pipeline. The less watchers the better.
-function set_watcher_renders(data) {
-  return chokidar.watch(data.renders_to_watch, {
-    ignored: /(^|[\/\\])\../, // ignore dotfiles
-    persistent: true,
-    usePolling: true,
-  })
-    .on('change', () => {
-      setTimeout(function () {
-        refresh_spawn()
-      }, 1000)
-    });
 }
 
 // add listener to the render-quality checkbox
@@ -99,9 +71,20 @@ function status_update(text) {
 }
 
 function latest_render_update(mockup_name) {
-  time = today.getHours() + ":" + today.getMinutes();
+  // to display double digits in minutes (09 instead of 9)
+  mins = ('0' + today.getMinutes()).slice(-2);
+  time = today.getHours() + ":" + mins;
   change_text('render-info-mockup-text', mockup_name)
   change_text('render-info-time-text', time)
+}
+
+function reset_ui() {
+  change_text('render-info-mockup-text', '-')
+  change_text('render-info-time-text', '-')
+  status_update('Ready<br>Waiting for edits in Photoshop')
+  if (document.getElementsByTagName('canvas')[0]) {
+    document.getElementsByTagName('canvas')[0].remove()
+  }
 }
 
 function load_set() {
@@ -146,8 +129,14 @@ ipcRenderer.on('open-mockup-set', (event, file) => {
   parseTOML(file)
     .then((data) => {
       error_display(false);
-      watcher_textures = set_watcher_textures(data);
-      // watcher_renders = set_watcher_renders(data);
+      if (watcher_textures) {
+        watcher_textures.close().then(() => {
+          watcher_textures = set_watcher_textures(data);
+        })
+      } else {
+        watcher_textures = set_watcher_textures(data);
+      }
+      reset_ui();
       core_display(true);
       document.title = `${windowTitle} - ${data.name}`;
 
