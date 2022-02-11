@@ -31,6 +31,9 @@ html {
    --mockup-set-hover: #be2665;
    --render-view-border: #121212;
    --render-view-container: #ffffffe6;
+   --tooltip-color: #fcfcfc;
+   --tooltip-color-shadow: #0000001f;
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,6 +48,8 @@ html {
       --mockup-set-hover: #741e4d;
       --render-view-border: #555555;
       --render-view-container: #00000042;
+      --tooltip-color: #292929;
+      --tooltip-color-shadow: #ffffff08;
       color-scheme: dark;
    }
 
@@ -190,7 +195,6 @@ svg path {
 
 main {
    display: flex;
-   overflow: auto;
    margin-bottom: 1.5rem;
 }
 
@@ -374,6 +378,79 @@ code {
    margin-top: auto;
 }
 
+.render-quality-container {
+   font-size: 0.75em;
+   display: flex;
+   align-items: center;
+   margin-bottom: -0.4em;
+}
+
+.render-quality-container label {
+   padding-left: .3em;
+}
+
+input#render-quality {
+   margin: 0 0 0 -1px;
+}
+
+.render-quality-container svg {
+   height: 1.2em;
+   width: auto;
+   padding: 0.4em;
+}
+
+.render-quality-tooltip {
+   display: flex;
+}
+
+[data-tooltip] {
+   position: relative;
+   cursor: help;
+   text-decoration: underline;
+}
+
+[data-tooltip][data-position=right]::before {
+   top: -100%;
+   left: 150%;
+   transform: translateX(-20px);
+}
+
+[data-tooltip][data-position=bottom]::before {
+   top: 150%;
+   transform: translateY(-20px);
+}
+
+[data-tooltip][data-position=left]::before {
+   top: -50%;
+   right: 105%;
+   left: auto;
+   transform: translateX(20px);
+}
+
+[data-tooltip]:hover::before {
+   transform: translate(0);
+   opacity: 1;
+}
+
+[data-tooltip]::before {
+   content: attr(data-tooltip);
+   position: absolute;
+   width: 18.5em;
+   display: block;
+   background: var(--tooltip-color);
+   padding: 10px;
+   top: -50px;
+   white-space: break-spaces;
+   box-shadow: 3px 3px 0px 1px var(--tooltip-color-shadow);
+   border-radius: 3px;
+   text-align: center;
+   left: 0;
+   z-index: 1;
+   opacity: 0;
+   pointer-events: none;
+   transform: translateY(20px);
+   transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 footer {
    margin-top: auto;

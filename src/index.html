@@ -69,11 +69,25 @@
                   <span class="render-info-title">Status</span>
                   <p id="render-info-status-text">Ready.<br>Waiting for edits in Photoshop.</p>
                </div>
+               <!--  
                <button class="btn-base btn-1">
                   <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
                      <path xmlns="http://www.w3.org/2000/svg" d="M12.7929 2.29289C13.1834 1.90237 13.8166 1.90237 14.2071 2.29289L17.2071 5.29289C17.5976 5.68342 17.5976 6.31658 17.2071 6.70711L14.2071 9.70711C13.8166 10.0976 13.1834 10.0976 12.7929 9.70711C12.4024 9.31658 12.4024 8.68342 12.7929 8.29289L14.0858 7H12.5C8.95228 7 6 9.95228 6 13.5C6 17.0477 8.95228 20 12.5 20C16.0477 20 19 17.0477 19 13.5C19 12.9477 19.4477 12.5 20 12.5C20.5523 12.5 21 12.9477 21 13.5C21 18.1523 17.1523 22 12.5 22C7.84772 22 4 18.1523 4 13.5C4 8.84772 7.84772 5 12.5 5H14.0858L12.7929 3.70711C12.4024 3.31658 12.4024 2.68342 12.7929 2.29289Z"></path>
                   </svg>
-                  <span>Force Render</span></button>
+                  <span>Force Render</span>
+               </button>
+               -->
+               <div class="render-quality-container">
+                  <input type="checkbox" id="render-quality" name="render-quality">
+                  <label for="render-quality">Ultra Quality</label>
+                  <span class="render-quality-tooltip" data-tooltip="💀 If renders are broken, disable it.&#13;&#10;⌚ Render times will increase a bit." data-position="right">
+                     <svg fill="none" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path xmlns="http://www.w3.org/2000/svg" d="M12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"></path>
+                        <path xmlns="http://www.w3.org/2000/svg" d="M12 14C11.4477 14 11 13.5523 11 13L11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7L13 13C13 13.5523 12.5523 14 12 14Z"></path>
+                        <path xmlns="http://www.w3.org/2000/svg" d="M10.5 16.5C10.5 15.6716 11.1716 15 12 15C12.8284 15 13.5 15.6716 13.5 16.5C13.5 17.3284 12.8284 18 12 18C11.1716 18 10.5 17.3284 10.5 16.5Z"></path>
+                     </svg>
+                  </span>
+               </div>
             </div>
             <div class="photoshop-info">
                <p>If changes are not being automatically updated in Photoshop, go to:</p>

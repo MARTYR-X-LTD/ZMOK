@@ -24,8 +24,11 @@ const windowTitle = 'ZMOK';
 // To get latest render time
 const today = new Date();
 
-// Variables for every watcher function because they
-// have to be updated when mockup-set is changed.
+let render_quality = 1;
+
+// It will complain that the variable is never used.
+// Thing is, I need to save set_watcher_texture(data) to a → watcher_textures
+// variable so I can update it when the mockup set has changed
 let watcher_textures;
 // let watcher_renders;
 
@@ -41,7 +44,9 @@ function set_watcher_textures(data) {
       console.log(psd_texture_path);
       const psd_texture_file = path.basename(psd_texture_path);
       const renderData = data.textures.find(element => element.texture.includes(psd_texture_file));
-      renderData.quality = 1;
+      // add quality attribute to renderData
+      renderData.quality = render_quality;
+      console.log(renderData);
       render_scene(renderData);
     })
 }
@@ -69,6 +74,19 @@ function set_watcher_renders(data) {
       }, 1000)
     });
 }
+
+// add listener to the render-quality checkbox
+window.addEventListener('DOMContentLoaded', (event) => {
+
+  document.getElementById('render-quality')
+    .addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        render_quality = 1.5;
+      } else {
+        render_quality = 1;
+      }
+    })
+});
 
 
 
