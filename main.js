@@ -3,7 +3,6 @@ const path = require('path')
 const child_process = require('child_process')
 
 let win;
-let child;
 
 if (app.isPackaged) {
   // workaround for missing executable argument)
@@ -63,10 +62,13 @@ function createWindow() {
 
 }
 
-function update_smart_objects() {
+function update_smart_objects() { 
   if (process.platform == "win32") {
     spawn = child_process.spawnSync;
     spawn('cscript.exe', [path.join(resourcePath, 'photoshop_scripts/update_smart_objects.vbs')]);
+  } else if (process.platform == 'darwin') {
+    var cmd = 'osascript ' + path.join(resourcePath, 'photoshop_scripts/update_smart_objects.scpt');
+    child_process.exec(cmd);
   }
 }
 
