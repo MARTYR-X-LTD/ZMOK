@@ -58,7 +58,7 @@ const render_scene = (renderData) => {
       camera = collada.cameras[0];
       model = collada.scene.children[1];
 
-      const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.BackSide });
+      const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.FrontSide });
       //const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
       model.material = material
 
