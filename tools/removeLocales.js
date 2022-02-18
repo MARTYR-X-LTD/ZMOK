@@ -22,10 +22,12 @@ exports.default = async function (context) {
       }
    });
 
+   /*
    var delete_files = ["LICENSES.chromium.html", "LICENSE.electron.txt"]
 
    for (const file of delete_files) {
       fs.unlinkSync(path.join(appDir, file));
 
    }
+   */
 }

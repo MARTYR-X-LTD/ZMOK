@@ -30,3 +30,5 @@ TODO
 
 example-mockup/
 assets/example-mockup/
+
+build/*.p12

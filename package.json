@@ -9,7 +9,8 @@
     "pack": "electron-builder --dir",
     "dist32_64": "electron-builder --ia32 --x64 -w",
     "distW": "electron-builder --x64 -w",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "distM": "electron-builder --publish never"
   },
   "author": "MARTYR X LTD",
   "license": "MIT",
@@ -45,7 +46,7 @@
     "afterPack": "./tools/removeLocales.js",
     "fileAssociations": {
       "ext": "zmok",
-      "icon": "file-icon-256.ico"
+      "icon": "file-icon.ico"
     },
     "files": [
       "**/*",
