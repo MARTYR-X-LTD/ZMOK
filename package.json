@@ -30,7 +30,10 @@
     "appId": "com.martyr.ZMOK",
     "productName": "ZMOK",
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "files": [
+        "!node_modules/sharp/vendor/"
+      ]
     },
     "nsis": {
       "oneClick": true,
@@ -46,12 +49,12 @@
     "afterPack": "./tools/removeLocales.js",
     "fileAssociations": {
       "ext": "zmok",
-      "icon": "file-icon.ico"
+      "description": "ZMOK 3D Mockup File",
+      "role": "Viewer"
     },
     "files": [
       "**/*",
       "!assets/",
-      "!node_modules/sharp/vendor/",
       "!node_modules/three/build/three.min.js",
       "!node_modules/three/build/three.module.js",
       "!node_modules/three/src/",

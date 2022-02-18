@@ -88,7 +88,7 @@ function reset_ui() {
 }
 
 function load_set() {
-  ipcRenderer.send('open-mockup-set')
+  ipcRenderer.send('open-mockup-set-dialog')
   //  window.electron.open_mockup_set()
 }
 

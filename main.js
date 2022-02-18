@@ -3,20 +3,30 @@ const path = require('path')
 const child_process = require('child_process')
 
 let win;
+let external_file;
 
 if (app.isPackaged) {
-  // workaround for missing executable argument)
+  // workaround for missing executable argument
   process.argv.unshift(null)
 }
 // parameters is now an array containing any files/folders that your OS will pass to your application
-let external_file = process.argv[2];
+// this is only for Windows
+if (process.platform == "win32") {
+  external_file = process.argv[2];
+}
+
+app.on('open-file', (event, path) => {
+  external_file = path;
+  // prevent default is necessary. It says in the docs. Why? Who knows.
+  event.preventDefault();
+});
 
 
 function open_mockup_init(external_file) {
-  external_file = path.parse(path.resolve(external_file));
-  console.log(external_file);
-  if (external_file.ext === '.zmok') {
-    win.webContents.send('open-mockup-set', external_file);
+  external_file_parsed = path.parse(path.resolve(external_file));
+  //console.log(external_file);
+  if (external_file_parsed.ext === '.zmok') {
+    win.webContents.send('open-mockup-set', external_file_parsed);
   } else {
     dialog.showMessageBoxSync(win, {
       title: 'Error',
@@ -80,6 +90,8 @@ app.whenReady().then(() => {
   })
 
   win.webContents.on('dom-ready', () => {
+  
+
     if (external_file) {
       open_mockup_init(external_file);
     }
@@ -99,7 +111,7 @@ app.on('window-all-closed', () => {
   app.quit()
 })
 
-ipcMain.on('open-mockup-set', (event, arg) => {
+ipcMain.on('open-mockup-set-dialog', (event, arg) => {
   dialog.showOpenDialog({
     title: 'Open Mockup Set',
     filters: [{ name: 'ZMOK 3D Mockup Set', extensions: ['zmok'] }],
