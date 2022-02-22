@@ -32,3 +32,4 @@ example-mockup/
 assets/example-mockup/
 
 build/*.p12
+BUILD-PRIVATE.md

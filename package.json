@@ -17,7 +17,8 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "electron": "^16.0.7",
-    "electron-builder": "^22.14.5"
+    "electron-builder": "^22.14.5",
+    "electron-notarize": "^1.1.1"
   },
   "dependencies": {
     "chokidar": "^3.5.2",
@@ -33,7 +34,26 @@
       "target": "nsis",
       "files": [
         "!node_modules/sharp/vendor/"
-      ]
+      ],
+      "fileAssociations": {
+        "ext": "zmok",
+        "description": "ZMOK 3D Mockup File",
+        "icon": "zmok.ico"
+      }
+    },
+    "afterSign": "build/notarize.js",
+    "mac": {
+      "fileAssociations": {
+        "ext": "zmok",
+        "description": "ZMOK 3D Mockup File",
+        "role": "Viewer",
+        "icon": "zmok.icns"
+      },
+      "category": "public.app-category.graphics-design",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
     },
     "nsis": {
       "oneClick": true,
@@ -47,11 +67,6 @@
     "artifactName": "ZMOK_${version}_Setup.${ext}",
     "forceCodeSigning": false,
     "afterPack": "./tools/removeLocales.js",
-    "fileAssociations": {
-      "ext": "zmok",
-      "description": "ZMOK 3D Mockup File",
-      "role": "Viewer"
-    },
     "files": [
       "**/*",
       "!assets/",
