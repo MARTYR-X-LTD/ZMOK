@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "chokidar": "^3.5.2",
+    "node-mac-permissions": "^2.2.0",
     "psd": "https://github.com/MARTYR-X-LTD/psd.js#master",
     "sharp": "^0.29.3",
     "three": "^0.136.0",

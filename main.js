@@ -83,15 +83,30 @@ function update_smart_objects() {
 
 
 app.whenReady().then(() => {
+  
   createWindow();
 
   win.once('ready-to-show', () => {
     win.show();
+
+    if (process.platform == 'darwin') {
+      const { getAuthStatus, askForFullDiskAccess } = require('node-mac-permissions');
+  
+      if (getAuthStatus('full-disk-access') !== 'authorized') {
+        dialog.showMessageBoxSync(win, {
+          title: 'Full Disk Access',
+          message: 'ZMOK requires Full Disk Access permission to be enabled in order to work properly.',
+          type: 'info'
+        });
+    
+        askForFullDiskAccess();
+      }
+    
+    }
   })
 
   win.webContents.on('dom-ready', () => {
   
-
     if (external_file) {
       open_mockup_init(external_file);
     }
@@ -102,6 +117,9 @@ app.whenReady().then(() => {
       createWindow()
     }
   })
+
+
+
 })
 
 app.on('window-all-closed', () => {

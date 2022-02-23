@@ -1,6 +1,8 @@
 function PSDTexture(file) {
    return new Promise(function (resolve) {
+      console.log(file);
       PSD.open(file).then((parsed) => {
+         console.log('parseado');
          let psd = {
             uint8: parsed.image.touint8(),
             width: parsed.header.cols,
@@ -71,9 +73,10 @@ const render_scene = (renderData) => {
 
       camera.updateProjectionMatrix();
       renderer.setPixelRatio(1);
-
+      console.log('texture entering');
       texture.then((texture) => {
 
+         console.log('hi');
          texture.needsUpdate = true;
 
          model.material.map = texture;
