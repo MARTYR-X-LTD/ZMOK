@@ -17,7 +17,13 @@ if (process.platform == "win32") {
 
 app.on('open-file', (event, path) => {
   external_file = path;
+  // here i need to add open_mockup_init
+  // or open a new window when called
+  // but beware of not loading
+  // 2 windows from 0 widnows loaded
+  // with second-instance
   // prevent default is necessary. It says in the docs. Why? Who knows.
+  // https://www.electronjs.org/docs/latest/api/app
   event.preventDefault();
 });
 
