@@ -3,9 +3,6 @@ const path = require('path')
 const child_process = require('child_process')
 
 let windows = new Set();
-let currenwWindow = null;
-//let window = null;
-let external_file;
 
 const gotTheLock = app.requestSingleInstanceLock();
 
@@ -13,21 +10,13 @@ if (app.isPackaged) {
   // workaround for missing executable argument
   process.argv.unshift(null)
 }
-// parameters is now an array containing any files/folders that your OS will pass to your application
-// this is used by Windows Explorer to open files with double click.
-// macOS uses open-file
-if (process.argv[2]) {
-  external_file = process.argv[2];
-}
+
 
 app.on('open-file', (event, path) => {
-  // exclusive call for macOS. Windows use the external_file stuff directly from process.argv[2].
-
-  external_file = path;
-
   // prevent creating 2 windows when a ZMOK file when ZMOK is not running at all
   if (windows.size > 0) {
-    createWindow();
+    // path = path to opening document from Finder
+    createWindow(path);
   }
 
   // prevent default is necessary for open-file to work. 
@@ -37,9 +26,8 @@ app.on('open-file', (event, path) => {
 });
 
 
-function open_mockup_init(external_file, window) {
+function open_mockup_init(external_file, currentWindow) {
   external_file_parsed = path.parse(path.resolve(external_file));
-  currentWindow = window;
   //currentWindow = BrowserWindow.getFocusedWindow();
   //console.log(external_file);
   if (external_file_parsed.ext === '.zmok') {
@@ -61,7 +49,7 @@ const resourcePath =
     ? __dirname // Dev Mode
     : process.resourcesPath; // Live Mode
 
-const createWindow = () => {
+const createWindow = (external_file) => {
   let window = new BrowserWindow({
     width: 920 * 0.9,
     height: 540 * 0.9,
@@ -77,8 +65,7 @@ const createWindow = () => {
     },
   })
 
-  windows.add(window);
-
+  windows.add(window)
 
   //open links in external browser
   window.webContents.setWindowOpenHandler(({ url }) => {
@@ -90,37 +77,36 @@ const createWindow = () => {
   window.loadFile('src/index.html');
 
   window.once('ready-to-show', () => {
-    window.show();   
-    console.log(window);
-  
+    window.show();
+    //console.log(window);
 
     if (process.platform == 'darwin') {
       const { getAuthStatus, askForFullDiskAccess } = require('node-mac-permissions');
-  
+
       if (getAuthStatus('full-disk-access') !== 'authorized') {
         dialog.showMessageBoxSync(window, {
           title: 'Full Disk Access',
           message: 'ZMOK requires Full Disk Access permission to be enabled in order to work properly.',
           type: 'info'
         });
-    
+
         askForFullDiskAccess();
       }
-    
-  }
+
+    }
   })
   window.webContents.on('dom-ready', () => {
     //console.log(BrowserWindow.getAllWindows());
 
-    // here, move it here!
     if (external_file) {
       open_mockup_init(external_file, window);
     }
+
   })
 }
 
 ipcMain.on('app', (event, arg) => {
-  currentWindow = BrowserWindow.getFocusedWindow();
+  let currentWindow = BrowserWindow.getFocusedWindow();
   switch (arg) {
     case 'minimize':
       currentWindow.minimize();
@@ -145,27 +131,32 @@ function update_smart_objects() {
 
 
 app.whenReady().then(() => {
-  
-  createWindow();
+
+  createWindow(process.argv[2]);
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      createWindow(process.argv[2]);
     }
   })
 })
 
-app.on('second-instance', (event, commandLine, workingDirectory) => {
-  // second-instance is NOT used by macOS when opening documents from Finder.
-  // it is used when opening apps from the command line though.
-  // Have to test this in Windows.
-  if (process.argv[2]) {
-    external_file = process.argv[2];
-  } else {
-    external_file = null;
-  }
-  createWindow();
-})
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine) => {
+    // second-instance is NOT used by macOS when opening documents from Finder.
+    // it is used when opening apps from the command line though.
+    // all this if else logic is necessary to prevent duplicated processes
+    // and execute everything in the main process
+
+    // this is used by Windows Explorer to open files with double click.
+    // macOS uses open-file
+    // process.argv[2] = commandLine[2] = document being opened
+    // if process.argv[2] is empty, it will return null automatically
+    createWindow(commandLine[2]);
+  })
+}
 
 app.on('window-all-closed', () => {
   //if (process.platform !== 'darwin') {
