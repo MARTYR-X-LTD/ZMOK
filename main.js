@@ -2,39 +2,57 @@ const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron')
 const path = require('path')
 const child_process = require('child_process')
 
-let win;
+let windows = new Set();
+let currenwWindow = null;
+//let window = null;
 let external_file;
+
+const gotTheLock = app.requestSingleInstanceLock();
 
 if (app.isPackaged) {
   // workaround for missing executable argument
   process.argv.unshift(null)
 }
 // parameters is now an array containing any files/folders that your OS will pass to your application
-// this is only for Windows
-if (process.platform == "win32") {
+// this is used by Windows Explorer to open files with double click.
+// macOS uses open-file
+if (process.argv[2]) {
   external_file = process.argv[2];
 }
 
 app.on('open-file', (event, path) => {
+  // exclusive call for macOS. Windows use the external_file stuff directly from process.argv[2].
+  if (windows.size > 0) {
+    createWindow();
+  }
+  // calling to window somehow works, like a messagebox
+
   external_file = path;
+
+  //open_mockup_init(path);
   // here i need to add open_mockup_init
   // or open a new window when called
   // but beware of not loading
   // 2 windows from 0 widnows loaded
   // with second-instance
-  // prevent default is necessary. It says in the docs. Why? Who knows.
+
+
+  // prevent default is necessary for open-file to work. 
+  // It says in the docs. Why? Who knows.
   // https://www.electronjs.org/docs/latest/api/app
   event.preventDefault();
 });
 
 
-function open_mockup_init(external_file) {
+function open_mockup_init(external_file, window) {
   external_file_parsed = path.parse(path.resolve(external_file));
+  currentWindow = window;
+  //currentWindow = BrowserWindow.getFocusedWindow();
   //console.log(external_file);
   if (external_file_parsed.ext === '.zmok') {
-    win.webContents.send('open-mockup-set', external_file_parsed);
+    currentWindow.webContents.send('open-mockup-set', external_file_parsed);
   } else {
-    dialog.showMessageBoxSync(win, {
+    dialog.showMessageBoxSync(currentWindow, {
       title: 'Error',
       message: 'Invalid file',
       type: 'error'
@@ -50,8 +68,8 @@ const resourcePath =
     ? __dirname // Dev Mode
     : process.resourcesPath; // Live Mode
 
-function createWindow() {
-  win = new BrowserWindow({
+const createWindow = () => {
+  let window = new BrowserWindow({
     width: 920 * 0.9,
     height: 540 * 0.9,
     autoHideMenuBar: true,
@@ -66,17 +84,62 @@ function createWindow() {
     },
   })
 
+  windows.add(window);
+
+
   //open links in external browser
-  win.webContents.setWindowOpenHandler(({ url }) => {
+  window.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: 'deny' };
   });
 
   //win.setMenu(null)
-  win.loadFile('src/index.html');
+  window.loadFile('src/index.html');
 
+  window.once('ready-to-show', () => {
+    window.show();   
+    console.log(window);
+  
 
+    if (process.platform == 'darwin') {
+      const { getAuthStatus, askForFullDiskAccess } = require('node-mac-permissions');
+  
+      if (getAuthStatus('full-disk-access') !== 'authorized') {
+        dialog.showMessageBoxSync(window, {
+          title: 'Full Disk Access',
+          message: 'ZMOK requires Full Disk Access permission to be enabled in order to work properly.',
+          type: 'info'
+        });
+    
+        askForFullDiskAccess();
+      }
+    
+  }
+  })
+  window.webContents.on('dom-ready', () => {
+    //console.log(BrowserWindow.getAllWindows());
+
+    // here, move it here!
+    if (external_file) {
+      open_mockup_init(external_file, window);
+    }
+  })
 }
+
+ipcMain.on('app', (event, arg) => {
+  currentWindow = BrowserWindow.getFocusedWindow();
+  switch (arg) {
+    case 'minimize':
+      currentWindow.minimize();
+      break;
+    case 'quit':
+      currentWindow.close();
+      windows.delete(currentWindow);
+      //currentWindow = null;
+      break;
+  }
+})
+
 
 function update_smart_objects() {
   if (process.platform == "win32") {
@@ -92,40 +155,17 @@ app.whenReady().then(() => {
   
   createWindow();
 
-  win.once('ready-to-show', () => {
-    win.show();
-
-    if (process.platform == 'darwin') {
-      const { getAuthStatus, askForFullDiskAccess } = require('node-mac-permissions');
-  
-      if (getAuthStatus('full-disk-access') !== 'authorized') {
-        dialog.showMessageBoxSync(win, {
-          title: 'Full Disk Access',
-          message: 'ZMOK requires Full Disk Access permission to be enabled in order to work properly.',
-          type: 'info'
-        });
-    
-        askForFullDiskAccess();
-      }
-    
-    }
-  })
-
-  win.webContents.on('dom-ready', () => {
-  
-    if (external_file) {
-      open_mockup_init(external_file);
-    }
-  })
-
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
+      createWindow();
     }
   })
+})
 
-
-
+app.on('second-instance', (event, commandLine, workingDirectory) => {
+  // Someone tried to run a second instance, we should focus our window.
+  // XD??????????? not used, broooooo
+  createWindow();
 })
 
 app.on('window-all-closed', () => {
@@ -154,7 +194,7 @@ ipcMain.on('open-mockup-set-dialog', (event, arg) => {
           // parseTOML(path.resolve(file.dir, file.base));
           event.reply('open-mockup-set', file);
         } else {
-          dialog.showMessageBoxSync(win, {
+          dialog.showMessageBoxSync(window, {
             title: 'Error',
             message: 'Invalid file',
             type: 'error'
@@ -162,7 +202,7 @@ ipcMain.on('open-mockup-set-dialog', (event, arg) => {
         }
       }
     }).catch(err => {
-      dialog.showMessageBoxSync(win, {
+      dialog.showMessageBoxSync(window, {
         title: 'Error',
         message: err,
         type: 'error'
@@ -170,17 +210,6 @@ ipcMain.on('open-mockup-set-dialog', (event, arg) => {
     })
 
 
-})
-
-ipcMain.on('app', (event, arg) => {
-  switch (arg) {
-    case 'minimize':
-      win.minimize();
-      break;
-    case 'quit':
-      app.quit();
-      break;
-  }
 })
 
 

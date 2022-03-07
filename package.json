@@ -42,7 +42,6 @@
         "icon": "zmok.ico"
       }
     },
-    "afterSign": "build/notarize.js",
     "mac": {
       "fileAssociations": {
         "ext": "zmok",
