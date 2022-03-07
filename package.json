@@ -34,7 +34,19 @@
     "win": {
       "target": "nsis",
       "files": [
-        "!node_modules/sharp/vendor/"
+        "**/*",
+        "!node_modules/sharp/vendor/",
+        "!node_modules/three/build/three.min.js",
+        "!node_modules/three/build/three.module.js",
+        "!node_modules/three/src/",
+        "!node_modules/psd/docs/",
+        "!node_modules/psd/dist/psd.min.js",
+        "!TODO",
+        "!vscode.code-workspace",
+        "!tools/",
+        "!assets/",
+        "!dist/",
+        "!*.md"
       ],
       "fileAssociations": {
         "ext": "zmok",
@@ -53,7 +65,20 @@
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist"
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "files": [
+        "**/*",
+        "!node_modules/three/build/three.min.js",
+        "!node_modules/three/build/three.module.js",
+        "!node_modules/three/src/",
+        "!node_modules/psd/docs/",
+        "!node_modules/psd/dist/psd.min.js",
+        "!TODO",
+        "!vscode.code-workspace",
+        "!tools/",
+        "!assets/",
+        "!dist/"
+      ]
     },
     "nsis": {
       "oneClick": true,
@@ -67,18 +92,6 @@
     "artifactName": "ZMOK_${version}_Setup.${ext}",
     "forceCodeSigning": false,
     "afterPack": "./tools/removeLocales.js",
-    "files": [
-      "**/*",
-      "!assets/",
-      "!node_modules/three/build/three.min.js",
-      "!node_modules/three/build/three.module.js",
-      "!node_modules/three/src/",
-      "!node_modules/psd/docs/",
-      "!node_modules/psd/dist/psd.min.js",
-      "!TODO",
-      "!tools/",
-      "!vscode.code-workspace"
-    ],
     "extraResources": [
       "photoshop_scripts"
     ]
