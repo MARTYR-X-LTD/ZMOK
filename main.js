@@ -22,20 +22,13 @@ if (process.argv[2]) {
 
 app.on('open-file', (event, path) => {
   // exclusive call for macOS. Windows use the external_file stuff directly from process.argv[2].
-  if (windows.size > 0) {
-    createWindow();
-  }
-  // calling to window somehow works, like a messagebox
 
   external_file = path;
 
-  //open_mockup_init(path);
-  // here i need to add open_mockup_init
-  // or open a new window when called
-  // but beware of not loading
-  // 2 windows from 0 widnows loaded
-  // with second-instance
-
+  // prevent creating 2 windows when a ZMOK file when ZMOK is not running at all
+  if (windows.size > 0) {
+    createWindow();
+  }
 
   // prevent default is necessary for open-file to work. 
   // It says in the docs. Why? Who knows.
@@ -163,8 +156,14 @@ app.whenReady().then(() => {
 })
 
 app.on('second-instance', (event, commandLine, workingDirectory) => {
-  // Someone tried to run a second instance, we should focus our window.
-  // XD??????????? not used, broooooo
+  // second-instance is NOT used by macOS when opening documents from Finder.
+  // it is used when opening apps from the command line though.
+  // Have to test this in Windows.
+  if (process.argv[2]) {
+    external_file = process.argv[2];
+  } else {
+    external_file = null;
+  }
   createWindow();
 })
 
