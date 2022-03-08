@@ -122,7 +122,7 @@ ipcMain.on('app', (event, arg) => {
 
 function update_smart_objects() {
   if (process.platform == "win32") {
-    var cmd = 'cscript.exe ' + path.join(resourcePath, 'photoshop_scripts/update_smart_objects.vbs');
+    var cmd = 'cscript.exe /T:2 ' + path.join(resourcePath, 'photoshop_scripts/update_smart_objects.vbs');
   } else if (process.platform == 'darwin') {
     var cmd = 'osascript ' + path.join(resourcePath, 'photoshop_scripts/update_smart_objects.scpt');
   }

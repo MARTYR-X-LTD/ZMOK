@@ -1,3 +1,5 @@
+ON ERROR RESUME NEXT
+
 sComputerName = "."
 Set objWMIService = GetObject("winmgmts:\\" & sComputerName & "\root\cimv2")
 sQuery = "SELECT * FROM Win32_Process WHERE Name LIKE '%Photoshop%'"
