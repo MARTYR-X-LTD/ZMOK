@@ -2,6 +2,11 @@
 Just run ‘yarn distW‘ and it will build an installer inside the dist folder.
 
 # macOS
+run
+‘‘‘
+nvm use 16
+‘‘‘
+and then
 ‘‘‘
 CSC_KEY_PASSWORD=...
 CSC_LINK=$(openssl base64 -in Developer-ID-Application-Certificates.p12)
