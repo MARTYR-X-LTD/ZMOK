@@ -54,6 +54,7 @@
         "icon": "zmok.ico"
       }
     },
+    "afterSign": "build/notarize.js",
     "mac": {
       "target": {
         "target": "default",
