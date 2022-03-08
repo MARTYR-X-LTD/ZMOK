@@ -1,5 +1,13 @@
 # Windows
-Just run ‘yarn distW‘ and it will build an installer inside the dist folder.
+Ignore optional is mandatory. Otherwise, node-mac-permissions will give problems.
+
+‘yarn install --ignore-optional‘
+
+And then
+
+‘yarn distW‘ 
+
+It will build a silent installer inside the dist folder.
 
 # macOS
 run
