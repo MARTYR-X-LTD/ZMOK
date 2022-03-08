@@ -81,8 +81,8 @@ const createWindow = (external_file) => {
   });
 
   //win.setMenu(null)
-  window.loadFile('src/index.html');
-
+  window.loadFile(path.join(__dirname, 'src/index.html'));
+  
   window.once('ready-to-show', () => {
     window.show();
     //console.log(window);

@@ -13,5 +13,8 @@ Might need to scape special characters with ‘\‘.
 
 Relevant link: https://til.simonwillison.net/electron/sign-notarize-electron-macos
 
+## Development
 
+For some reason, after building a universal package in macOS, it won't run in 'yarn start' (dev mode). Need to ‘rm -rf node_modules‘ and ‘yarn install‘ again to fetch the compatible binaries
+for the current arquitecture in the dev machine.
 
