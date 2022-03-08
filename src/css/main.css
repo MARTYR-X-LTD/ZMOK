@@ -473,6 +473,12 @@ footer, .footer-links, .martyr-version, .footer-right {
    align-items: center;
 }
 
+.footer-buttons {
+   display: flex;
+   align-items: center;
+   gap: 0.8em;
+}
+
 .footer-links, .martyr-version {
    font-size: 0.75em;
 }

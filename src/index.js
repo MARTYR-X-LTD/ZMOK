@@ -92,6 +92,12 @@ function load_set() {
   //  window.electron.open_mockup_set()
 }
 
+function new_window() {
+  ipcRenderer.send('new-window')
+  //  window.electron.open_mockup_set()
+}
+
+
 function app_window_control(command) {
   ipcRenderer.send('app', command)
 }

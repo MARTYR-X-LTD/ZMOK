@@ -55,6 +55,10 @@
       }
     },
     "mac": {
+      "target": {
+        "target": "default",
+        "arch": "universal"
+      },
       "fileAssociations": {
         "ext": "zmok",
         "description": "ZMOK 3D Mockup File",

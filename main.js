@@ -3,6 +3,7 @@ const path = require('path')
 const child_process = require('child_process')
 
 let windows = new Set();
+let initial_file_macOS = null;
 
 const gotTheLock = app.requestSingleInstanceLock();
 
@@ -11,12 +12,18 @@ if (app.isPackaged) {
   process.argv.unshift(null)
 }
 
-
 app.on('open-file', (event, path) => {
-  // prevent creating 2 windows when a ZMOK file when ZMOK is not running at all
+  // prevent trying to create 2 windows when ZMOK is not running at all
+  // and a file has been open from Finder.
+  // Else, it will fill a variable which is going to be used
+  // when the application has finished loading (initial_file_macOS).
+  // Otherwise, calling createWindow before the app has finished
+  // loading, will result in error. 
   if (windows.size > 0) {
     // path = path to opening document from Finder
     createWindow(path);
+  } else {
+    initial_file_macOS = path;
   }
 
   // prevent default is necessary for open-file to work. 
@@ -131,12 +138,15 @@ function update_smart_objects() {
 
 
 app.whenReady().then(() => {
-
-  createWindow(process.argv[2]);
+  
+  (initial_file_macOS) ? createWindow(initial_file_macOS) : createWindow(process.argv[2]);
 
   app.on('activate', () => {
+    // dont know the difference between this call and windows.size
+    // but that's how's in the wiki.
+    // 
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow(process.argv[2]);
+      (initial_file_macOS) ? createWindow(initial_file_macOS) : createWindow(process.argv[2]);
     }
   })
 })
@@ -166,40 +176,32 @@ app.on('window-all-closed', () => {
 })
 
 ipcMain.on('open-mockup-set-dialog', (event, arg) => {
-  dialog.showOpenDialog({
+  let currentWindow = BrowserWindow.getFocusedWindow();
+  let result_open = dialog.showOpenDialogSync({
     title: 'Open Mockup Set',
     filters: [{ name: 'ZMOK 3D Mockup Set', extensions: ['zmok'] }],
     properties: ['openFile']
   })
-    .then(result => {
-      if (result.canceled === false) {
-        let file = path.parse(result.filePaths[0])
-        // file returns:
-        // { root: '/',
-        //   dir: '/home/user/dir',
-        //   base: 'file.txt',
-        //   ext: '.txt',
-        //   name: 'file' }
-        if (file.ext === '.zmok') {
-          // parseTOML(path.resolve(file.dir, file.base));
-          event.reply('open-mockup-set', file);
-        } else {
-          dialog.showMessageBoxSync(window, {
-            title: 'Error',
-            message: 'Invalid file',
-            type: 'error'
-          })
-        }
-      }
-    }).catch(err => {
-      dialog.showMessageBoxSync(window, {
+
+  if (result_open) {
+    let file = path.parse(result_open[0])
+    // file returns:
+    // { root: '/',
+    //   dir: '/home/user/dir',
+    //   base: 'file.txt',
+    //   ext: '.txt',
+    //   name: 'file' }
+    if (file.ext === '.zmok') {
+      // parseTOML(path.resolve(file.dir, file.base));
+      event.reply('open-mockup-set', file);
+    } else {
+      dialog.showMessageBoxSync(currentWindow, {
         title: 'Error',
-        message: err,
+        message: 'Invalid file',
         type: 'error'
       })
-    })
-
-
+    }
+  }
 })
 
 
@@ -207,6 +209,9 @@ ipcMain.on('refresh-spawn', (event, arg) => {
   update_smart_objects();
 })
 
+ipcMain.on('new-window', (event, arg) => {
+  createWindow(null);
+})
 
 ipcMain.on('synchronous-message', (event, arg) => {
   console.log(arg) // prints "ping"
