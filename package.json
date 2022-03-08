@@ -24,7 +24,7 @@
     "chokidar": "^3.5.2",
     "node-mac-permissions": "^2.2.0",
     "psd": "https://github.com/MARTYR-X-LTD/psd.js#master",
-    "sharp": "^0.29.3",
+    "sharp": "^0.30.2",
     "three": "^0.136.0",
     "toml": "^3.0.0"
   },
