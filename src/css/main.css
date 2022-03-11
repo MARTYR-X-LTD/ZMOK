@@ -25,10 +25,8 @@ html {
    --border-radius-1: 5px;
    --fg-color-1: #121212;
    --fg-color-2: #eeeeee;
-   /* --mockup-set: #1f79ff; */
-   --mockup-set: #d34673;
-   /* --mockup-set-hover: #1760cc; */
-   --mockup-set-hover: #be2665;
+   --mockup-set: #d14d6c;
+   --mockup-set-hover: #a52956;
    --render-view-border: #121212;
    --render-view-container: #ffffffe6;
    --tooltip-color: #fcfcfc;
@@ -42,10 +40,8 @@ html {
       --bg-color-2: #ffffff10;
       --fg-color-1: #cecece;
       --fg-color-2: #eeeeee;
-      /* --mockup-set: #0a4db3; */
-      --mockup-set: #aa1e6c;
-      /* --mockup-set-hover: #0346a9; */
-      --mockup-set-hover: #741e4d;
+      --mockup-set: #9f2852;
+      --mockup-set-hover: #871c43;
       --render-view-border: #555555;
       --render-view-container: #00000042;
       --tooltip-color: #292929;
