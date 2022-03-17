@@ -39,13 +39,13 @@ function open_mockup_init(external_file, currentWindow) {
   //console.log(external_file);
   if (external_file_parsed.ext === '.zmok') {
     currentWindow.webContents.send('open-mockup-set', external_file_parsed);
-  } else {
+  } /* else {
     dialog.showMessageBoxSync(currentWindow, {
       title: 'Error',
       message: 'Invalid file',
       type: 'error'
     })
-  }
+  } */
 }
 
 
