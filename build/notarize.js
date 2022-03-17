@@ -10,10 +10,21 @@ exports.default = async function notarizing(context) {
 
   const appName = context.packager.appInfo.productFilename;
 
-  return await notarize({
-    appBundleId: "com.martyr.ZMOK",
-    appPath: `${appOutDir}/${appName}.app`,
-    appleId: process.env.APPLEID,
-    appleIdPassword: process.env.APPLEIDPASS,
-  });
+  console.log(
+    `Notarizing ${appName} found at ${appOutDir}/${appName}.app with Apple ID ${process.env.APPLEID}. This may take a couple of minutes, depending on the upload speed and Apple servers...`
+  )
+
+  try {
+    await notarize({
+      appBundleId: "com.martyr.ZMOK",
+      appPath: `${appOutDir}/${appName}.app`,
+      appleId: process.env.APPLEID,
+      appleIdPassword: process.env.APPLEIDPASS,
+    })
+  } catch (error) {
+      console.error(error)
+  }
+
+  console.log(`Done notarizing ${appName}`)
+
 };
