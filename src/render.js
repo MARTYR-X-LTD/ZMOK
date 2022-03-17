@@ -56,7 +56,23 @@ const render_scene = (renderData) => {
       scene_renderer = collada.scene;
 
       camera = collada.cameras[0];
-      model = collada.scene.children[1];
+
+      for (const children of collada.scene.children) {
+         if (children.type == 'Mesh') {
+            model = children;
+            break;
+         }
+      }
+
+      if (!model) {
+         console.error('ERROR: missing the camera in the GLB file!');
+         return;
+      }
+
+      if (!camera) {
+         console.error('ERROR: missing the model in the GLB file!');
+         return;
+      }
 
       const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.FrontSide });
       //const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
