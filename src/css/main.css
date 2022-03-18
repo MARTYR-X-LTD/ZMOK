@@ -88,6 +88,10 @@ p {
    font-size: 0.75em;
 }
 
+a {
+   color: inherit;
+}
+
 
 svg path {
    fill: var(--fg-color-1);
