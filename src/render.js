@@ -92,9 +92,34 @@ const render_scene = (renderData) => {
          texture.needsUpdate = true;
 
          model.material.map = texture;
+
+         // smooth texture rendering
          model.material.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+
+         model.material.map.generateMipmaps = false;
+
+         // premultiply alpha works better on black/black surfaces,
+         // but is really awful on clear/white surfaces combinations.
+         // better be disabled.
+         model.material.map.premultiplyAlpha = false;
+
+         // lot of random stuff that will help prevent white/black borders around
+         // transparent renders
+         model.material.blending = THREE.CustomBlending;
+         model.material.blendEquation = THREE.AddEquation;
+         model.material.blendSrc = THREE.OneFactor;
+         model.material.blendDst = THREE.OneMinusSrcAlphaFactor;
+         model.material.blendSrcAlpha = THREE.SrcColorFactor;
+         model.material.blendDstAlpha = THREE.OneMinusDstAlphaFactor;
+
+         // smooth texture rendering
+         model.material.map.magfilter = THREE.LinearMipmapNearestFilter;
          model.material.map.minFilter = THREE.LinearMipmapNearestFilter;
-         model.material.map.minFilter = THREE.LinearFilter;
+
+         // this will help with borders in transparent renders as well
+         model.material.transparent = true;
+
          model.material.map.flipY = false;
 
          frame_generation();
