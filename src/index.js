@@ -21,9 +21,6 @@ const { parseTOML } = require('./parseTOML');
 
 const windowTitle = 'ZMOK';
 
-// To get latest render time
-const today = new Date();
-
 let render_quality = 1;
 
 let watcher_textures;
@@ -71,9 +68,11 @@ function status_update(text) {
 }
 
 function latest_render_update(mockup_name) {
+  let current_time = new Date();
+
   // to display double digits in minutes (09 instead of 9)
-  mins = ('0' + today.getMinutes()).slice(-2);
-  time = today.getHours() + ":" + mins;
+  mins = ('0' + current_time.getMinutes()).slice(-2);
+  time = current_time.getHours() + ":" + mins;
   change_text('render-info-mockup-text', mockup_name)
   change_text('render-info-time-text', time)
 }
