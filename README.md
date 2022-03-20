@@ -14,7 +14,7 @@ Frustated – and motivated! – by those news, I made **ZMOK**: a 3D mockup ren
 
 &nbsp;
 
-Have you used a Photoshop mockup before? Basically, it's the same. You don't have to learn anything new :).
+Have you used a Photoshop mockup before? Basically, it's the same. You don't have to learn anything new :). Just open the .ZMOK file that comes with the assets and you're ready to go!
 
 ZMOK works better. Has more features. It is faster. And nicer 😎
 
@@ -30,7 +30,7 @@ Latest version: v1.0.0 — 19 March 2022
 
 # Where to get ZMOK mockups?
 
-📦 [Take a look!](https://martyr.shop/collections/all/3D).
+📦 [Take a look!](https://martyr.shop/collections/all/3D)
 
 # How to use it
 
