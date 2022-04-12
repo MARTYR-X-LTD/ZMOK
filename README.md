@@ -26,13 +26,11 @@ Latest version: v1.0.0 — 19 March 2022
 
 [macOS](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.0/ZMOK_1.0.0_macOS_Setup.dmg)
 
-# Features
-
 # Where to get ZMOK mockups?
 
 📦 [Take a look!](https://martyr.shop/collections/all/3D)
 
-# How to use it
+# Demo
 
 https://user-images.githubusercontent.com/12679098/157349008-515fb173-f49c-4d66-8cc2-ae7fb3853680.mp4
 
