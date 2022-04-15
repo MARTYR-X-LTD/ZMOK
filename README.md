@@ -20,11 +20,11 @@ ZMOK works better. Has more features. It is faster. And nicer 😎
 
 # Download
 
-Latest version: v1.0.0 — 19 March 2022
+Latest version: v1.0.1 — 15 April 2022
 
-[Windows](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.0/ZMOK_1.0.0_Windows_Setup.exe)
+[Windows](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.1/ZMOK_1.0.1_Windows_Setup.exe)
 
-[macOS](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.0/ZMOK_1.0.0_macOS_Setup.dmg)
+[macOS](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.1/ZMOK_1.0.1_macOS_Setup.dmg)
 
 # Where to get ZMOK mockups?
 
