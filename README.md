@@ -10,7 +10,7 @@ There are no plans to introduce 3D features back in Photoshop. Such a shame. 3D 
 
 Frustrated – and motivated! – by those news, I made **ZMOK**: a 3D mockup renderer that works with Photoshop files (PSDs).
 
-<img src="https://user-images.githubusercontent.com/12679098/163662065-41114fc1-3e35-4224-811c-f0bab158622c.png" width="900" height="auto">
+<img src="https://user-images.githubusercontent.com/12679098/163662065-41114fc1-3e35-4224-811c-f0bab158622c.png" width="700" height="auto">
 
 &nbsp;
 
