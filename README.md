@@ -8,9 +8,9 @@ Adobe announced that those features are [being discontinued](https://helpx.adobe
 
 There are no plans to introduce 3D features back in Photoshop. Such a shame. 3D mockups have proven to be very useful for the creative community. A lot of potential lost.
 
-Frustated – and motivated! – by those news, I made **ZMOK**: a 3D mockup renderer that works with Photoshop files (PSDs). 
+Frustrated – and motivated! – by those news, I made **ZMOK**: a 3D mockup renderer that works with Photoshop files (PSDs).
 
-<img src="https://user-images.githubusercontent.com/12679098/157457528-6cf81945-ab3c-4c68-a1b4-9b6aafa472f5.png" width="900" height="auto">
+<img src="https://user-images.githubusercontent.com/12679098/163662065-41114fc1-3e35-4224-811c-f0bab158622c.png" width="700" height="auto">
 
 &nbsp;
 
@@ -20,11 +20,11 @@ ZMOK works better. Has more features. It is faster. And nicer 😎
 
 # Download
 
-Latest version: v1.0.0 — 19 March 2022
+Latest version: v1.0.1 — 15 April 2022
 
-[Windows](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.0/ZMOK_1.0.0_Windows_Setup.exe)
+[Windows](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.1/ZMOK_1.0.1_Windows_Setup.exe)
 
-[macOS](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.0/ZMOK_1.0.0_macOS_Setup.dmg)
+[macOS](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.0.1/ZMOK_1.0.1_macOS_Setup.dmg)
 
 # Where to get ZMOK mockups?
 
