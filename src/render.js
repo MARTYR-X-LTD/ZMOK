@@ -158,9 +158,6 @@ const render_scene = (renderData) => {
       renderer.setRenderTarget(rt);
       renderer.render(scene_renderer, camera);
 
-      renderer.setRenderTarget(rt);
-      renderer.render(scene_renderer, camera);
-
 
       const buffer = new Uint8Array(parseInt(width_render_r * height_render_r * 4), 10);
       renderer.readRenderTargetPixels(rt, 0, 0, width_render_r, height_render_r, buffer);
