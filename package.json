@@ -1,6 +1,6 @@
 {
   "name": "ZMOK",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple 3D renderer focused on bringing 3D features to Photoshop mockups.",
   "main": "main.js",
   "scripts": {

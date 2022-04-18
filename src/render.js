@@ -147,7 +147,17 @@ const render_scene = (renderData) => {
       // const rt = new THREE.WebGLRenderTarget(width_render_r, height_render_r);
       const rt = new THREE.WebGLMultisampleRenderTarget(width_render_r, height_render_r);
 
-      renderer.setSize(width_render_r, height_render_r);
+      // setPixelRatio was called before, can't recall why
+      // but it affects somehow the canvas resolution
+      // setting the size of the renderer here to whatever
+      // won't affect the final render, it's just the canvas display res
+      // setting it before being multiplied by *pixel_ratio won't end up
+      // cropping the image
+      renderer.setPixelRatio(1);
+      renderer.setSize(width_render, height_render);
+      renderer.setRenderTarget(rt);
+      renderer.render(scene_renderer, camera);
+
       renderer.setRenderTarget(rt);
       renderer.render(scene_renderer, camera);
 
