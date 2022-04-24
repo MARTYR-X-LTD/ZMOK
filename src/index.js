@@ -32,6 +32,12 @@ function set_watcher_textures(data) {
     ignored: /(^|[\/\\])\../, // ignore dotfiles
     persistent: true,
     usePolling: true,
+    interval: 150,
+    binaryInterval: 300,
+    awaitWriteFinish: {
+      stabilityThreshold: 300,
+      pollInterval: 150
+    },
   })
     .on('change', psd_texture_path => {
       //console.log(psd_texture_path);
@@ -50,7 +56,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   document.getElementById('render-quality')
     .addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
-        render_quality = 1.5;
+        render_quality = 1.4;
       } else {
         render_quality = 1;
       }
