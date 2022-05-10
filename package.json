@@ -1,5 +1,5 @@
 {
-  "name": "ZMOK",
+  "name": "zmok",
   "version": "1.0.3",
   "description": "A simple 3D renderer focused on bringing 3D features to Photoshop mockups.",
   "main": "main.js",
@@ -94,7 +94,8 @@
       "runAfterFinish": true,
       "deleteAppDataOnUninstall": true,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "uninstallDisplayName": "ZMOK ${version}"
     },
     "artifactName": "ZMOK_${version}_Setup.${ext}",
     "forceCodeSigning": false,
