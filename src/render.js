@@ -1,3 +1,5 @@
+const url = require('url');
+
 function PSDTexture(file) {
    return new Promise(function (resolve) {
       PSD.open(file).then((parsed) => {
@@ -50,8 +52,15 @@ const render_scene = (renderData) => {
 
    let scene_loader = new THREE.GLTFLoader();
    let scene_renderer;
+   
+   /* converting file path to url is required to 
+   handle special characters in directories.
+   Apparently, this is a thing with GLTFLoader,
+   so rest of code in the app should be fine and won't need
+   to convert to absolute url to handle this situation */
+   let sceneURL = url.pathToFileURL(renderData.scene).href;
 
-   scene_loader.load(renderData.scene, (collada) => {
+   scene_loader.load(sceneURL, (collada) => {
 
       scene_renderer = collada.scene;
 
