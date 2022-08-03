@@ -12,9 +12,7 @@ const toml = require('toml');
 // PNG render library
 const sharp = require('sharp');
 
-// old PSD.js parser
-// const PSD = require('psd');
-
+// PSD parser
 let Psd;
 (async () => {
   Psd = await import("../node_modules/@webtoon/psd/dist/index.js");
