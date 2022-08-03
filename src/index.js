@@ -12,7 +12,15 @@ const toml = require('toml');
 // PNG render library
 const sharp = require('sharp');
 
-const PSD = require('psd');
+// old PSD.js parser
+// const PSD = require('psd');
+
+let Psd;
+(async () => {
+  Psd = await import("../node_modules/@webtoon/psd/dist/index.js");
+})();
+
+
 const THREE = require("three");
 require('./GLTFLoader');
 const { render_scene } = require('./render');

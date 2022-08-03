@@ -21,6 +21,7 @@
     "electron-notarize": "^1.1.1"
   },
   "dependencies": {
+    "@webtoon/psd": "^0.2.0",
     "chokidar": "^3.5.2",
     "psd": "https://github.com/MARTYR-X-LTD/psd.js#master",
     "sharp": "^0.30.2",

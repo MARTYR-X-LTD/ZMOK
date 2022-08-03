@@ -1,5 +1,7 @@
 const url = require('url');
 
+
+/*
 function PSDTexture(file) {
    return new Promise(function (resolve) {
       PSD.open(file).then((parsed) => {
@@ -12,6 +14,18 @@ function PSDTexture(file) {
       })
    })
 }
+*/
+
+function PSDTexture(file) {
+   return new Promise(function (resolve) {
+      const psdData = fs.readFileSync(file);
+      const psdFile = Psd.default.parse(psdData.buffer);
+      psdFile.composite().then((texture) => {
+         resolve(new THREE.DataTexture(texture, psdFile.width, psdFile.height, THREE.RGBAFormat));         
+      });
+   })
+}
+
 
 const render_scene = (renderData) => {
 
