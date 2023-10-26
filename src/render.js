@@ -144,14 +144,13 @@ const render_scene = (renderData) => {
       const width_render_r = width_render * pixel_ratio;
       const height_render_r = height_render * pixel_ratio;
 
-      // RenderTarget vs MultisampleRenderTarget
-      // One is webgl 1.0. Multisample is webgl 2.0
-      // Multisample can do antialiasing. But probably won't work in macOS.
-      // Further tests are needed
+      // RenderTarget vs MultipleRenderTargets
+      // RenderTarget may be webgl 1.0. Multisample should be webgl 2.0
+      // Multisample can do antialiasing. RenderTarget works with antialiasing most of the time.
       // See: https://github.com/google/angle
 
-      // const rt = new THREE.WebGLRenderTarget(width_render_r, height_render_r);
-      const rt = new THREE.WebGLMultisampleRenderTarget(width_render_r, height_render_r);
+      const rt = new THREE.WebGLRenderTarget(width_render_r, height_render_r);
+      // const rt = new THREE.WebGLMultipleRenderTargets(width_render_r, height_render_r);
 
       // setPixelRatio was called before, can't recall why
       // but it affects somehow the canvas resolution
