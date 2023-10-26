@@ -1,0 +1,1 @@
+cmd /c start /min "" powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "D:\martyr Backup\__apps\ZMOK\source\photoshop_scripts\update_smart_objects.ps1"
