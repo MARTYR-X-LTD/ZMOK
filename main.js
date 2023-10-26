@@ -93,7 +93,7 @@ const createWindow = (external_file) => {
       if (getAuthStatus('full-disk-access') !== 'authorized') {
         dialog.showMessageBoxSync(window, {
           title: 'Full Disk Access',
-          message: 'ZMOK requires Full Disk Access permission to be enabled in order to work properly.',
+          message: 'ZMOK requires Full Disk Access permission to be enabled. This ensures your artwork will be rendered in ZMOK and Photoshop properly.',
           type: 'info'
         });
 
