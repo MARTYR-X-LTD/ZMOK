@@ -158,9 +158,6 @@ const render_scene = (renderData) => {
          minFilter: THREE.LinearMipmapLinearFilter,
          magFilter: THREE.LinearFilter,
          format: THREE.RGBAFormat,
-         type: THREE.UnsignedByteType,
-         depthBuffer: false,
-         stencilBuffer: false,
          // colorSpace gets wrong colors for some reason
          // colorSpace: THREE.SRGBColorSpace,
          // samples is for multisample, default is 0. Jagged borders without it.
