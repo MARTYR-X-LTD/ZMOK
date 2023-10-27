@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   document.getElementById('render-quality')
     .addEventListener('change', (event) => {
       if (event.currentTarget.checked) {
-        render_quality = 1.4;
+        render_quality = 2;
       } else {
         render_quality = 1;
       }
