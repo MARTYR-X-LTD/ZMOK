@@ -97,9 +97,14 @@ const render_scene = (renderData) => {
 
          texture.needsUpdate = true;
 
+         // smooth texture rendering
+         texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+         texture.magFilter = THREE.LinearFilter;
+         texture.minFilter = THREE.LinearMipmapLinearFilter;
+
          model.material.map = texture;
 
-         // smooth texture rendering
+         // smooth texture rendering continuation, maybe next line does nothing but it's free!
          model.material.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
 
@@ -120,8 +125,8 @@ const render_scene = (renderData) => {
          model.material.blendDstAlpha = THREE.OneMinusDstAlphaFactor;
 
          // smooth texture rendering
-         model.material.map.magfilter = THREE.LinearMipmapNearestFilter;
-         model.material.map.minFilter = THREE.LinearMipmapNearestFilter;
+         model.material.map.magfilter = THREE.LinearFilter;
+         model.material.map.minFilter = THREE.LinearMipmapLinearFilter;
 
          // this will help with borders in transparent renders as well
          model.material.transparent = true;
@@ -149,7 +154,19 @@ const render_scene = (renderData) => {
       // Multisample can do antialiasing. RenderTarget works with antialiasing most of the time.
       // See: https://github.com/google/angle
 
-      const rt = new THREE.WebGLRenderTarget(width_render_r, height_render_r);
+      const rt = new THREE.WebGLRenderTarget(width_render_r, height_render_r, {
+         minFilter: THREE.LinearMipmapLinearFilter,
+         magFilter: THREE.LinearFilter,
+         format: THREE.RGBAFormat,
+         type: THREE.UnsignedByteType,
+         depthBuffer: false,
+         stencilBuffer: false,
+         // colorSpace gets wrong colors for some reason
+         // colorSpace: THREE.SRGBColorSpace,
+         // samples is for multisample, default is 0. Jagged borders without it.
+         samples: 4,
+         anisotropy: renderer.capabilities.getMaxAnisotropy(),
+      });
       // const rt = new THREE.WebGLMultipleRenderTargets(width_render_r, height_render_r);
 
       // setPixelRatio was called before, can't recall why
