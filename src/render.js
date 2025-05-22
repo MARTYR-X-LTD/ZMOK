@@ -47,7 +47,7 @@ const render_scene = (renderData) => {
    let model;
    let camera;
 
-   let scene_loader = new THREE.GLTFLoader();
+   let scene_loader = new GLTFLoader();
    let scene_renderer;
    
    /* converting file path to url is required to 
@@ -71,12 +71,12 @@ const render_scene = (renderData) => {
       }
 
       if (!model) {
-         console.error('ERROR: missing the camera in the GLB file!');
+         console.error('ERROR: missing the model in the GLB file!');
          return;
       }
 
       if (!camera) {
-         console.error('ERROR: missing the model in the GLB file!');
+         console.error('ERROR: missing the camera in the GLB file!');
          return;
       }
 
@@ -86,7 +86,8 @@ const render_scene = (renderData) => {
 
       camera.aspect = width_render / height_render;
 
-      camera.lookAt(scene_renderer.position);
+      // camera.lookAt(scene_renderer.position);
+      // camera.lookAt(model.position);
 
       model.updateMatrix();
       model.geometry.applyMatrix4(model.matrix);

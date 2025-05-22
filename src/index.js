@@ -20,7 +20,7 @@ let Psd;
 
 
 const THREE = require("three");
-require('./GLTFLoader');
+const { GLTFLoader } = require('three/addons/loaders/GLTFLoader.js');
 const { render_scene } = require('./render');
 const { parseTOML } = require('./parseTOML');
 //***********************************************************
