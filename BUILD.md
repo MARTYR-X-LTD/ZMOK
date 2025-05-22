@@ -8,11 +8,11 @@ Don't use WSL. Install and run everything from native Windows.
 
 `--ignore-optional` is **mandatory**. Otherwise, node-mac-permissions will give problems. If you've messed up this step, just delete the folder node_modules and proceed to the next command.
 
-Use Node `20.x`. If you have nvm:
+Use Node `22.x`. If you have nvm:
 
 ```
-nvm install 20
-nvm use 20
+nvm install 22
+nvm use 22
 ```
 
 And then
@@ -34,8 +34,10 @@ nvm use 20
 
 ## Windows
 
+Run the following command as **Administrator**:
+
 ```
-npm distW
+npm run distW
 ```
 
 It will build a silent installer inside the dist folder.
@@ -43,7 +45,7 @@ It will build a silent installer inside the dist folder.
 ## macOS
 
 ```
-npm distM
+npm run distM
 ```
 
 Build is inside the dist folder.

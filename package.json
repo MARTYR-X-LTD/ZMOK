@@ -1,6 +1,6 @@
 {
   "name": "zmok",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A simple 3D renderer focused on bringing 3D features to Photoshop mockups.",
   "main": "main.js",
   "scripts": {
@@ -16,19 +16,19 @@
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "electron": "^27.0.2",
-    "electron-builder": "^24.6.4",
-    "electron-notarize": "^1.1.1"
+    "electron": "^36.2.1",
+    "electron-builder": "^26.0.12",
+    "@electron/notarize": "^3.0.1"
   },
   "dependencies": {
     "@webtoon/psd": "^0.4.0",
-    "chokidar": "^3.5.3",
-    "sharp": "^0.32.6",
-    "three": "^0.157.0",
+    "chokidar": "^4.0.3",
+    "sharp": "^0.34.2",
+    "three": "^0.176.0",
     "toml": "^3.0.0"
   },
   "optionalDependencies": {
-    "node-mac-permissions": "^2.3.0"
+    "node-mac-permissions": "^2.5.0"
   },
   "build": {
     "appId": "com.martyr.ZMOK",
@@ -38,9 +38,6 @@
       "files": [
         "**/*",
         "!node_modules/sharp/vendor/",
-        "!node_modules/three/build/three.min.js",
-        "!node_modules/three/build/three.module.js",
-        "!node_modules/three/src/",
         "!TODO",
         "!vscode.code-workspace",
         "!tools/",
@@ -66,7 +63,7 @@
         "icon": "zmok.icns"
       },
       "mergeASARs": false,
-      "notarize": "notarytool",
+      "notarize": true,
       "category": "public.app-category.graphics-design",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
@@ -84,6 +81,7 @@
         "!dist/"
       ]
     },
+    "onNodeModuleFile": "./tools/include-examples-three.js",
     "nsis": {
       "oneClick": true,
       "perMachine": false,
