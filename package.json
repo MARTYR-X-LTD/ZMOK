@@ -71,14 +71,12 @@
       "entitlementsInherit": "build/entitlements.mac.plist",
       "files": [
         "**/*",
-        "!node_modules/three/build/three.min.js",
-        "!node_modules/three/build/three.module.js",
-        "!node_modules/three/src/",
         "!TODO",
         "!vscode.code-workspace",
         "!tools/",
         "!assets/",
-        "!dist/"
+        "!dist/",
+        "!*.md"
       ]
     },
     "onNodeModuleFile": "./tools/include-examples-three.js",

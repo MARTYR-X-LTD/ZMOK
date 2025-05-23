@@ -23,11 +23,11 @@ npm install --ignore-optional
 
 ## macOS
 
-Use Node `20.x`. If you have nvm:
+Use Node `22.x`. If you have nvm:
 
 ```
-nvm install 20
-nvm use 20
+nvm install 22
+nvm use 22
 ```
 
 # Compilation
