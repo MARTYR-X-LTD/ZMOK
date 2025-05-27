@@ -15,10 +15,10 @@
   "author": "MARTYR X LTD",
   "license": "MIT",
   "devDependencies": {
+    "@electron/notarize": "^3.0.1",
     "cross-env": "^7.0.3",
     "electron": "^36.2.1",
-    "electron-builder": "^26.0.12",
-    "@electron/notarize": "^3.0.1"
+    "electron-builder": "^26.0.12"
   },
   "dependencies": {
     "@webtoon/psd": "^0.4.0",
@@ -28,6 +28,8 @@
     "toml": "^3.0.0"
   },
   "optionalDependencies": {
+    "@img/sharp-darwin-arm64": "^0.34.2",
+    "@img/sharp-darwin-x64": "^0.34.2",
     "node-mac-permissions": "^2.5.0"
   },
   "build": {

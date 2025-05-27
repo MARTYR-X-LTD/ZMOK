@@ -30,6 +30,12 @@ nvm install 22
 nvm use 22
 ```
 
+And then
+
+```
+npm install
+```
+
 # Compilation
 
 ## Windows
