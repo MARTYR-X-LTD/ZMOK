@@ -1,6 +1,6 @@
 {
   "name": "zmok",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A simple 3D renderer focused on bringing 3D features to Photoshop mockups.",
   "main": "main.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "dist32_64": "electron-builder --ia32 --x64 -w",
     "distW": "electron-builder --x64 -w",
     "dist": "electron-builder",
-    "distM": "electron-builder --publish never"
+    "prebuildM": "npm install --os=darwin --cpu=x64 @img/sharp-darwin-x64 && npm install --os=darwin --cpu=arm64 @img/sharp-darwin-arm64",
+    "distM": "npm run prebuildM && electron-builder --publish never"
   },
   "author": "MARTYR X LTD",
   "license": "MIT",
@@ -35,6 +36,9 @@
   "build": {
     "appId": "com.martyr.ZMOK",
     "productName": "ZMOK",
+    "dmg": {
+      "artifactName": "${productName}_${version}_${arch}.${ext}"
+    },
     "win": {
       "target": "nsis",
       "files": [
@@ -55,8 +59,11 @@
     },
     "mac": {
       "target": {
-        "target": "default",
-        "arch": "universal"
+        "target": "dmg",
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       },
       "fileAssociations": {
         "ext": "zmok",
