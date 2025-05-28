@@ -20,7 +20,7 @@ ZMOK works better. Has more features. It is faster. And nicer 😎
 
 # Download
 
-Latest version: v1.4.1 — 22 May 2025
+Latest version: v1.4.1 — 28 May 2025
 
 [Windows](https://github.com/MARTYR-X-LTD/ZMOK/releases/download/v1.4.1/ZMOK_1.4.1_Windows_Setup.exe)
 
