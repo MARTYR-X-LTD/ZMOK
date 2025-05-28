@@ -182,33 +182,38 @@ const render_scene = (renderData) => {
       const buffer = new Uint8Array(parseInt(width_render_r * height_render_r * 4), 10);
       renderer.readRenderTargetPixels(rt, 0, 0, width_render_r, height_render_r, buffer);
 
-
-      const export_png = sharp(buffer, {
-         raw: {
-            width: parseInt(width_render_r, 10),
-            height: parseInt(height_render_r, 10),
-            channels: 4
-         }
-      })
-         .resize({
-            width: width_render,
-            height: height_render
+      const writeFile = () => {
+         return sharp(buffer, {
+            raw: {
+               width: parseInt(width_render_r, 10),
+               height: parseInt(height_render_r, 10),
+               channels: 4
+            }
          })
-         .flip()
-         .png({ compressionLevel: 1 })
-         .toFile(renderData.render_output);
+            .resize({
+               width: width_render,
+               height: height_render
+            })
+            .flip()
+            .png({ compressionLevel: 1 })
+            .toFile(renderData.render_output);
+      };
 
-
-      export_png.then(() => {
-         // usage of refresh_spawn() explained in index.js on
-         // top of set_watcher_renders().
+      const onSuccess = () => {
          setTimeout(function () {
             refresh_spawn()
          }, 350)
          status_update('Done<br>Waiting for new edits in Photoshop')
          latest_render_update(renderData.mockup_name)
-      })
+      };
 
+      writeFile().then(onSuccess).catch(() => {
+         setTimeout(() => {
+            writeFile().then(onSuccess).catch(() => {
+               status_update('Error: Failed to write file')
+            });
+         }, 1000);
+      });
 
       // render again to display image in the DOM
       // pure aesthetic decision. Much faster than loading
